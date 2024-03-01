@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('css', filename='index.css') }}">
+{% endblock %}
+
+{% block main %}
+    <script type="module" src="{{url_for('js', filename='index.mjs')}}"></script>
+{% endblock %}
