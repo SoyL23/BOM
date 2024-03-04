@@ -11,11 +11,12 @@ def login_user():
     form = AuthForm()
     if request.method == 'GET':
         token = generate_token()
-        return jsonify({'token': token})
+        return render_template('login.html', token=token)
     else:
+        
         if form.validate_on_submit():
-
-            email:str = str(form.login_user.data)
+            
+            email:str = str(form.login_name.data)
             password:str = str(form.login_password.data)
 
             user = User.query.filter_by(email=email).first()
@@ -24,19 +25,21 @@ def login_user():
                 return jsonify({'No existe este usuario'})
             else:
                 if user.check_password(user.password, password):
-                    access_token = create_access_token(identity=user.username)
+                    access_token = create_access_token(identity=user.email)
                     sesion_data = user.to_dict() 
                     for key, value in sesion_data.items():
                         session[key] = value
                     session['access_token'] = access_token
-                    return f"{session['access_token']}"
+                    return jsonify({'message': 'Login Success'})
+
                 else:
-                    return jsonify({'Contraseña Invalida'})
+                    return jsonify({'error': 'Contraseña Inválida'})  
         else:
-            return render_template('login.html', form=form, errors=form.errors)
+            return jsonify({'errors': form.errors})
 
 @auth.route('/api/auth/logout')
 def logout_user():
     session.pop('token', None)
+    session.pop('access_token', None)
     session.clear()
     return redirect('/')

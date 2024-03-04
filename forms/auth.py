@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, validators
 
 class AuthForm(FlaskForm):
     
-    login_user:object = StringField('login_name',validators=[
+    login_name:object = StringField('login_name',validators=[
         validators.DataRequired(message='Este Campo es Obligatorio'),
         validators.Length(min=7, max=15, message='Debe tener entre 7 y 15 caracteres')
     ])

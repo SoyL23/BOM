@@ -40,7 +40,7 @@ class User(db.Model):
             "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "doc_type": self.document_type,
+            "doc_type_id": self.doc_type_id,
             "doc_num":self.document_number,
             "email": self.email,
             "role": self.role.to_dict()['role'],
