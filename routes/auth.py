@@ -30,7 +30,7 @@ def login_user():
                     for key, value in sesion_data.items():
                         session[key] = value
                     session['access_token'] = access_token
-                    return jsonify({'message': 'Login Success'})
+                    return jsonify({'message': 'Login Success'}), 200
 
                 else:
                     return jsonify({'error': 'Contraseña Inválida'})  

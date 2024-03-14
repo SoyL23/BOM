@@ -14,3 +14,11 @@ main{
     max-width: 6rem;
     max-height: auto;
 }
+
+.my-swal-popup {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}

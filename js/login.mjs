@@ -1,4 +1,4 @@
-import { showResponse } from "./showResponse.mjs";
+ import { showResponse } from "./showResponse.mjs";
 
 export async function login(loginData) {
   const url = "/api/auth/login";
@@ -6,7 +6,7 @@ export async function login(loginData) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-CSRF-Token": String(loginData.token) // Convertir el token a cadena
+      "X-CSRF-Token": String(loginData.token)
     },
     body: JSON.stringify({
       'login_name': loginData.login_name,
@@ -15,5 +15,7 @@ export async function login(loginData) {
   });
 
   const responseData = await response.json();
-  console.log(responseData);
+  const statusCode = response.status;
+
+  return {responseData, statusCode};
 }
