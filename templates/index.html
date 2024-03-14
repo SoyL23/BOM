@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 
-{% block title %}Login{% endblock %}
+{% block tittle %}
+  <title>Login</title>
+{% endblock %}
 
 {% block styles %}
+  <link rel="stylesheet" href="{{ url_for('css', filename='bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('css', filename='index.css') }}">
 {% endblock %}
 

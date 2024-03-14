@@ -1,0 +1,16 @@
+.max-container{
+    min-height: 100dvh;
+    min-width: 95dvw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+main{
+    min-width: 90dvw;
+    min-height: 44rem; 
+}
+#logo{
+    max-width: 6rem;
+    max-height: auto;
+}
