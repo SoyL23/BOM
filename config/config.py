@@ -21,4 +21,7 @@ class Config:
                 data_config[name]=data
         return data_config
 
-config = Config()
+class ConfigDev:
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = f'{Config.engine}'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

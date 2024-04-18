@@ -15,7 +15,7 @@ class State(Base):
     country_id = Column(Integer(), ForeignKey('Countries.Country_id'),
                         nullable=False, name='Country_id')
     
-    country = relationship("Country", back_populates="states",lazy='dynamic')
+    country = relationship("Country", back_populates="states")
 
     cities = relationship('City', back_populates='state',  lazy='dynamic')
 

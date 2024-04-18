@@ -1,7 +1,5 @@
 from db.db import Base
 from sqlalchemy import Column, Integer, String, Text, DECIMAL
-from sqlalchemy.orm import relationship
-import decimal
 
 class Course(Base):
 

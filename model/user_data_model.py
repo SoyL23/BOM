@@ -17,13 +17,13 @@ class User_Data(Base):
                                 'Pasaporte' , 'NIT', 'PEP' ), nullable=False, name='Document_Type')
 
     role_id = Column(Integer(), ForeignKey('Roles.Role_id'), nullable=False, name='role_id')
-    role = relationship('Role', back_populates='user_data', uselist=False)
+    role = relationship(Role, back_populates='user_data', uselist=False)
 
     user_id = Column(Integer(), ForeignKey('Users.User_id'), nullable=False, name='User_id')
-    user = relationship('User', back_populates='data', uselist=False)
+    user = relationship(User, backref='data')
 
     city_id = Column(Integer(), ForeignKey('Cities.City_id'), nullable=False, name='City_id')
-    city = relationship('City', backref='Users')
+    city = relationship(City, backref='Users')
 
     def __init__(self, email:str, document_number:int):
         self.email = email

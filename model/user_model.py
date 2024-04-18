@@ -17,16 +17,14 @@ class User(Base):
     birthdate = Column(Date(), nullable=False, name='Birthdate')
     created_ad = Column(DateTime(), default=datetime.now(),
                         nullable=False, name='Register_date')
-    data = relationship('User_Data', uselist=False, back_populates='user')
-
-    def __init__(self, first_name:str, last_name:str, username:str, password:str, birthday, created_ad):
+    
+    def __init__(self, first_name:str, last_name:str, username:str, password:str, birthdate):
         self.first_name = first_name
         self.last_name = last_name
         self.username = username
         self.password =  password
-        self.birthday = birthday
-        self.created_ad = created_ad
-
+        self.birthdate = birthdate
+        
     def to_dict(self):
         return {
             'id': self.id,
@@ -34,7 +32,7 @@ class User(Base):
             'first_name': self.first_name,
             'last_name': self.last_name,
             'username': self.username,
-            'birthday': self.birthday,
+            'birthdate': self.birthdate,
             'created_ad': self.created_ad,
             'data': self.data.to_dict() if self.data else None
         }

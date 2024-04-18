@@ -13,9 +13,7 @@ class City(Base):
     code = Column(String(length=4), nullable=True, name='City_code')
 
     state_id = Column(Integer(), ForeignKey('States.State_id'), nullable=False, name='State_id')
-    state = relationship('State', back_populates='cities', uselist=False)
-
-    users = relationship('Users_Data', back_populates='city')
+    state = relationship(State, back_populates='cities', uselist=False)
 
     def __init__(self:str, name:str, description:str,code:str):
         self.name = name

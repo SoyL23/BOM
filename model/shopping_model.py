@@ -1,6 +1,11 @@
-from sqlalchemy import Column, Integer, Date, JSON, DECIMAL, ForeignKey
+from sqlalchemy import Column, Integer, Date, JSON, DECIMAL, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from db.db import Base
+
+association_table = Table('Shoppings-Courses', Base.metadata,
+    Column('shopping_id', Integer, ForeignKey('Shoppings.Shopping_id')),
+    Column('course_id', Integer, ForeignKey('Courses.Course_id'))
+)
 
 class Shopping(Base):
     
@@ -13,11 +18,10 @@ class Shopping(Base):
     id_courses = Column(JSON(), nullable=False, name='Id_courses')
     client_id = Column(Integer(), ForeignKey('Clients.Client_id'), nullable=False, name='Client_id')
 
-    courses = relationship('Course', primaryjoin='Shopping.id_courses.any_() == Course.id')
+    courses = relationship('Course', secondary=association_table, backref='shoppings')
 
-    def __init__(self, date, id, id_courses, quantity, total, client_id):
+    def __init__(self, date, id_courses, quantity, total, client_id):
         self.date = date
-        self.id = id
         self.id_courses = id_courses
         self.quantity = quantity
         self.total = total

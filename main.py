@@ -14,6 +14,7 @@ from model.company_model import *
 from model.employee_model import *
 from model.sell_model import *
 from model.shopping_model import *
+# from model.sell_course_model import *
 
 class Main():
 
@@ -23,7 +24,4 @@ class Main():
 
          Base.metadata.create_all(db.engine)
 
-
-
 main = Main()
-

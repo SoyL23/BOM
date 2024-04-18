@@ -12,8 +12,8 @@ class Client(Base):
     company_id = Column(Integer(), ForeignKey('Companies.Company_id'), nullable=True, name='Company_Client')
     user_id = Column(Integer(), ForeignKey('Users.User_id'), nullable=True, name='User_Client')
 
-    company = relationship("Company", back_populates="clients")
-    user = relationship("User", back_populates="clients")
+    company = relationship("Company", backref="clients")
+    user = relationship("User", backref="clients")
 
     def __init__(self, type_client:str, id_client:int):
         self.type_client = type_client

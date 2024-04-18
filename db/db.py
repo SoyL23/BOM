@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from config.config import config
+from config.config import Config
 
 class Database:
     
@@ -18,6 +18,8 @@ class Database:
         return self.__Session()
 
 Base = declarative_base()
+
+config = Config()
 
 db = Database(config)
 
