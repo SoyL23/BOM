@@ -4,7 +4,7 @@ from flask import request
 
 class User_Controller():
     def __init__(self):
-        # print('Controller')
+        # print('HI MADAFAKAS!')
         pass
 
 #---CREATE USER CONTROLLER---#
@@ -42,9 +42,12 @@ class User_Controller():
         try:
             data = {}
             users = db.session.query(User).all()
-            for user in users:
-                data[user.id] = user.to_dict()
-            return data
+            if users:
+                for user in users:
+                    data[user.id] = user.to_dict()
+                return data
+            else:
+                return 'Users not found'
         except Exception as e:
             return str(e)
     #---END Read All Users---#

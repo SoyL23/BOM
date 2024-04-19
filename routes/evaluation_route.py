@@ -1,11 +1,11 @@
 from flask import Blueprint, request
 
-company_bp = Blueprint('company', __name__)
+_bp = Blueprint('', __name__)
 
 #---CREATE ROUTE---#
 
-@company_bp.route('/api/v1/company/create', methods=['POST'])
-def add_company():
+@_bp.route('/api/v1//create', methods=['POST'])
+def add_():
     if request.method == 'POST':
         try:
             pass
@@ -17,8 +17,8 @@ def add_company():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@company_bp.route('/api/v1/company/read/<id>')
-def get_company():
+@_bp.route('/api/v1//read/<id>')
+def get_():
     if request.method == 'GET':
         try:
             pass
@@ -27,7 +27,7 @@ def get_company():
     #---END READ  BY ID---#
 
     #---READ ALL ---#
-@company_bp.route('/api/v1/company/read/all')
+@_bp.route('/api/v1//read/all')
 def get_companies():
     if request.method == 'GET':
         try:
@@ -41,8 +41,8 @@ def get_companies():
 
 
 #---UPDATE  ROUTE---#
-@company_bp.route('/api/v1/company/update/<id>',  methods=['PUT'])
-def edit_company():
+@_bp.route('/api/v1//update/<id>',  methods=['PUT'])
+def edit_():
     if request.method == 'PUT':
         try:
             pass
@@ -54,8 +54,8 @@ def edit_company():
 
 #---DELETE  ROUTE---#
 
-@company_bp.route('/api/v1/company/delete/<id>', methods=['DELETE'])
-def remove_company():
+@_bp.route('/api/v1//delete/<id>', methods=['DELETE'])
+def remove_():
     if request.method == 'DELETE':
         try:
             pass

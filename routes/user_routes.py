@@ -12,7 +12,7 @@ def add_user():
         try:
             form = User_Form()
             if form.validate_on_submit():
-                data = {key: value for key, value in form.data.items() if key != 'confirm_password'}
+                data:dict = {key: value for key, value in form.data.items() if key != 'confirm_password'}
                 controller = User_Controller()
                 response = controller.create_user(user_data=data)
                 return make_response(f'{response}!', 201)
@@ -29,29 +29,31 @@ def add_user():
     #---Read User by id route
 @user_bp.route('/api/v1/user/read/<id>')
 def get_user(id:int):
-    try:
-        controller:object = User_Controller()
-        user = controller.read_user(id)
-        if isinstance(user, str):
-            return user
-        else:
-            return make_response(user, 200)
-    except Exception as e:
-        return str(e)
+     if request.method == 'GET':   
+        try:
+            controller:object = User_Controller()
+            user = controller.read_user(id=id)
+            if isinstance(user, str):
+                return user
+            else:
+                return make_response(user, 200)
+        except Exception as e:
+            return str(e)
     #---END Read User by id route
     
     #---READ ALL USERS ROUTE---#
 @user_bp.route('/api/v1/user/read/all', methods=['GET'])
-def get_all_users():
-    try:
-        controller = User_Controller()
-        users = controller.read_users()
-        if isinstance(users, str):
-            return users, 500
-        else:
-            return jsonify(users), 200
-    except Exception as e:
-        return str(e)
+def get_users():
+    if request.method == 'GET':    
+        try:
+            controller = User_Controller()
+            users = controller.read_users()
+            if isinstance(users, str):
+                return users, 500
+            else:
+                return jsonify(users), 200
+        except Exception as e:
+            return str(e)
     #---END READ ALL USERS ROUTE---#
 
 
@@ -63,13 +65,17 @@ def get_all_users():
 
 @user_bp.route('/api/v1/user/update/<id>', methods=['PUT'])
 def edit_user(id:int):
-    try:
-        new_data = request.get_json()
-        controller = User_Controller()
-        response = controller.update_user(id, new_data)
-        return make_response(f'{response}!', 200)
-    except Exception as e:
-        return make_response(f'Error: {e}', 400)
+    if request.method == 'PUT':
+        try:
+            data = request.get_json()
+            if data:
+                controller:object = User_Controller()
+                response:str = controller.update_user(id=id, new_data=data)
+                return make_response(f'{response}!', 200)
+            else:
+                return 'Needed data to update!'
+        except Exception as e:
+            return make_response(f'Error: {e}', 400)
 
 #---UPDATE USER ROUTE---#
 
@@ -79,11 +85,12 @@ def edit_user(id:int):
 
 @user_bp.route('/api/v1/user/delete/<id>', methods=['DELETE'])
 def remove_user(id:int):
-    try:
-        controller = User_Controller()
-        response = controller.delete_user(id)
-        return make_response(f'{response}!', 200)
-    except Exception as e:
-        return make_response(f'Error: {e}', 400)
+    if request.method == 'DELETE':
+        try:
+            controller = User_Controller()
+            response = controller.delete_user(id)
+            return make_response(f'{response}!', 200)
+        except Exception as e:
+            return make_response(f'Error: {e}', 400)
     
 #---END DELETE USER ROUTE---#
