@@ -1,14 +1,15 @@
 from flask import Blueprint, request
 
-_bp = Blueprint('', __name__)
+employee_bp = Blueprint('employee', __name__)
 
 #---CREATE ROUTE---#
 
-@_bp.route('/api/v1//create', methods=['POST'])
-def add_():
+@employee_bp.route('/api/v1/employee/create', methods=['POST'])
+def add_employee():
     if request.method == 'POST':
         try:
             pass
+            
         except Exception as e:
             return str(e)
 #---END CREATE ROUTE---#
@@ -17,8 +18,8 @@ def add_():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@_bp.route('/api/v1//read/<id>')
-def get_():
+@employee_bp.route('/api/v1/employee/read/<id>')
+def get_employee():
     if request.method == 'GET':
         try:
             pass
@@ -27,8 +28,8 @@ def get_():
     #---END READ  BY ID---#
 
     #---READ ALL ---#
-@_bp.route('/api/v1//read/all')
-def get_companies():
+@employee_bp.route('/api/v1/employee/read/all')
+def get_employees():
     if request.method == 'GET':
         try:
             pass
@@ -41,8 +42,8 @@ def get_companies():
 
 
 #---UPDATE  ROUTE---#
-@_bp.route('/api/v1//update/<id>',  methods=['PUT'])
-def edit_():
+@employee_bp.route('/api/v1/employee/update/<id>',  methods=['PUT'])
+def edit_employee():
     if request.method == 'PUT':
         try:
             pass
@@ -54,8 +55,8 @@ def edit_():
 
 #---DELETE  ROUTE---#
 
-@_bp.route('/api/v1//delete/<id>', methods=['DELETE'])
-def remove_():
+@employee_bp.route('/api/v1/employee/delete/<id>', methods=['DELETE'])
+def remove_employee():
     if request.method == 'DELETE':
         try:
             pass

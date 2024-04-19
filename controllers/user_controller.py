@@ -1,6 +1,5 @@
 from db.db import db
 from model.user_model import User
-from flask import request
 
 class User_Controller():
     def __init__(self):
@@ -17,7 +16,10 @@ class User_Controller():
                 db.session.commit()
             return 'User created successfully.'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
         
 #---END CREATE USER CONTROLLER---#
 
@@ -34,7 +36,10 @@ class User_Controller():
             else:
                 return 'User not found.'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
     #---END Read User by id---#
 
     #---Read All Users---#
@@ -49,7 +54,10 @@ class User_Controller():
             else:
                 return 'Users not found'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
     #---END Read All Users---#
 
 #---END READ USER CONTROLLER---#
@@ -70,7 +78,10 @@ class User_Controller():
             else:
                 return "User not found."
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
 
 #---UPDATE USER CONTROLLER---#
 
@@ -88,6 +99,9 @@ class User_Controller():
             else:
                 return "User not found."
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
 
 #---END DELETE USER CONTROLLER---#

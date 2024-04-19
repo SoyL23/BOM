@@ -75,7 +75,7 @@ def edit_course(id:int):
                 response:str = controller.update_course(id=id, new_data=new_data)
                 return make_response(f'{response}!', 200)
             else:
-                return 'Needed data to update'
+                return 'Needed data to update', 400
         except Exception as e:
             return str(e)
 

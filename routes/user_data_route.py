@@ -1,11 +1,11 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response, jsonify
 
-_bp = Blueprint('', __name__)
+user_data_bp = Blueprint('', __name__)
 
 #---CREATE ROUTE---#
 
-@_bp.route('/api/v1//create', methods=['POST'])
-def add_():
+@user_data_bp.route('/api/v1/user_data/create', methods=['POST'])
+def add_data():
     if request.method == 'POST':
         try:
             pass
@@ -17,8 +17,8 @@ def add_():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@_bp.route('/api/v1//read/<id>')
-def get_():
+@user_data_bp.route('/api/v1/user_data/read/<id>')
+def get_data(id:int):
     if request.method == 'GET':
         try:
             pass
@@ -26,23 +26,12 @@ def get_():
             return str(e)
     #---END READ  BY ID---#
 
-    #---READ ALL ---#
-@_bp.route('/api/v1//read/all')
-def get_companies():
-    if request.method == 'GET':
-        try:
-            pass
-        except Exception as e:
-            return str(e)
-
-    #---END READ ALL ---#
-
 #---END READ  ROUTE---#
 
 
 #---UPDATE  ROUTE---#
-@_bp.route('/api/v1//update/<id>',  methods=['PUT'])
-def edit_():
+@user_data_bp.route('/api/v1/user_data/update/<id>',  methods=['PUT'])
+def edit_data(id:int):
     if request.method == 'PUT':
         try:
             pass
@@ -54,8 +43,8 @@ def edit_():
 
 #---DELETE  ROUTE---#
 
-@_bp.route('/api/v1//delete/<id>', methods=['DELETE'])
-def remove_():
+@user_data_bp.route('/api/v1/user_data/delete/<id>', methods=['DELETE'])
+def remove_data(id:int):
     if request.method == 'DELETE':
         try:
             pass

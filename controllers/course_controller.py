@@ -14,7 +14,10 @@ class Course_Controller():
                 db.session.commit()
             return 'Course created successfully.'    
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
         
 
     def read_course(self, id:int):
@@ -25,7 +28,10 @@ class Course_Controller():
             else:
                 return 'Course not found'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
 
     def read_courses(self):
         try:
@@ -38,7 +44,11 @@ class Course_Controller():
             else:
                 return 'Courses not found'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
+        
 
     def update_course(self, id:int, new_data:dict):
         try:
@@ -51,9 +61,11 @@ class Course_Controller():
                 return "Course updated successfully."
             else:
                 return 'Course not Found' 
-            
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()
 
     def delete_course(self, id:int):
         try:
@@ -65,4 +77,7 @@ class Course_Controller():
             else:
                 return 'Course not found.'
         except Exception as e:
+            db.session.rollback()
             return str(e)
+        finally:
+            db.session.close()

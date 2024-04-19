@@ -1,11 +1,12 @@
 from flask import Blueprint, request
+from controllers.evaluation_controller import Evaluation_Controller
 
-_bp = Blueprint('', __name__)
+evaluation_bp = Blueprint('evaluation', __name__)
 
 #---CREATE ROUTE---#
 
-@_bp.route('/api/v1//create', methods=['POST'])
-def add_():
+@evaluation_bp.route('/api/v1/evaluation/create', methods=['POST'])
+def add_evaluation():
     if request.method == 'POST':
         try:
             pass
@@ -17,8 +18,8 @@ def add_():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@_bp.route('/api/v1//read/<id>')
-def get_():
+@evaluation_bp.route('/api/v1/evaluation/read/<id>')
+def get_evaluation():
     if request.method == 'GET':
         try:
             pass
@@ -27,8 +28,8 @@ def get_():
     #---END READ  BY ID---#
 
     #---READ ALL ---#
-@_bp.route('/api/v1//read/all')
-def get_companies():
+@evaluation_bp.route('/api/v1/evaluation/read/all')
+def get_evaluations():
     if request.method == 'GET':
         try:
             pass
@@ -41,8 +42,8 @@ def get_companies():
 
 
 #---UPDATE  ROUTE---#
-@_bp.route('/api/v1//update/<id>',  methods=['PUT'])
-def edit_():
+@evaluation_bp.route('/api/v1/evaluation/update/<id>',  methods=['PUT'])
+def edit_evaluation():
     if request.method == 'PUT':
         try:
             pass
@@ -54,8 +55,8 @@ def edit_():
 
 #---DELETE  ROUTE---#
 
-@_bp.route('/api/v1//delete/<id>', methods=['DELETE'])
-def remove_():
+@evaluation_bp.route('/api/v1/evaluationdelete/<id>', methods=['DELETE'])
+def remove_evaluation():
     if request.method == 'DELETE':
         try:
             pass
