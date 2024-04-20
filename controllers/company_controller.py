@@ -37,7 +37,7 @@ class Company_Controller():
         try:
             companies = db.session.query(Company).all()
             if companies:
-                data = {company.id: company.to_dict() for company in companies}
+                data:dict = {company.id: company.to_dict() for company in companies}
                 return data
             else:
                 return 'Companies not found'

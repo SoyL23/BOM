@@ -1,6 +1,5 @@
 from db.db import Base
-from sqlalchemy import Column, String, Integer, Date, Enum, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, Date, Enum, ForeignKey
 
 class Certificate(Base):
     

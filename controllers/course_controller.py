@@ -35,11 +35,9 @@ class Course_Controller():
 
     def read_courses(self):
         try:
-            data:dict = {}
             courses = db.session.query(Course).all()
             if courses:
-                for course in courses:
-                    data[course.id] = course.to_dict()
+                data:dict = {course.id:course.to_dict() for course in courses}    
                 return data
             else:
                 return 'Courses not found'

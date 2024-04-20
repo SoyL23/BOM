@@ -3,10 +3,10 @@ from db.db import db
 
 class Evaluation_Controller:
     
-    def create_(self, evaluation_data):
+    def create_evaluation(self, evaluation_data:dict):
         
         try:
-            evaluation = Evaluation(**evaluation_data)
+            evaluation:object = Evaluation(**evaluation_data)
             with db.session.begin():
                 db.session.add(evaluation)
                 db.session.commit()
@@ -17,11 +17,14 @@ class Evaluation_Controller:
         finally:
             db.session.close()
     
-    def read_(self, id:int):
+    def read_evaluation(self, id:int):
         try:
             with db.session.begin():
-                 evaluation = db.session.query(Evaluation).filter(Evaluation.id == id).first()
-                 pass   
+                 evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+                 if evaluation:
+                     return evaluation.to_dict()
+                 else:
+                     return 'Evaluation not found'   
         except Exception as e:
             db.session.rollback()
             return str(e)
@@ -33,7 +36,7 @@ class Evaluation_Controller:
             with db.session.begin():
                  evaluations = db.session.query(Evaluation).all()
                  if evaluations:
-                    data = {evaluation.id:evaluation.to_dict() for evaluation in evaluations}
+                    data:dict = {evaluation.id:evaluation.to_dict() for evaluation in evaluations}
                     return data
         except Exception as e:
             db.session.rollback()
@@ -41,11 +44,17 @@ class Evaluation_Controller:
         finally:
             db.session.close()
 
-    def update_evaluation(self, id:int):
+    def update_evaluation(self, id:int, new_data:dict):
         try:
             with db.session.begin():
-                evaluation = db.session.query(Evaluation).filter(Evaluation.id == id).first()
-                pass
+                evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+                if evaluation:
+                    for attribute, data in new_data.items():
+                        setattr(evaluation, attribute, data)
+                    db.session.commit()
+                    return "Evaluation updated successfully."
+                else:
+                     return 'User not found.'
         except Exception as e:
             db.session.rollback()
             return str(e)
@@ -54,10 +63,14 @@ class Evaluation_Controller:
 
     def delete_evaluation(self, id:int):
         try:
-            evaluation = db.session.query(Evaluation).filter(Evaluation.id == id).first()
-            with db.session.begin():
-                db.session.delete(evaluation)
-                db.session.commit()
+            evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+            if evaluation:
+                with db.session.begin():
+                    db.session.delete(evaluation)
+                    db.session.commit()
+                    return 'Evaluation deleted successfully.'
+            else:
+                return "Evaluation not found."
         except Exception as e:
             db.session.rollback()
             return str(e)
