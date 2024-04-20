@@ -6,7 +6,7 @@ class Company_Controller():
     def __init__(self):
         pass
 
-    def create_company(self, company_data:dict):
+    def create_company(self, company_data:dict) -> str:
         try:
             company:object = Company(**company_data)
             with db.session.begin():
@@ -15,11 +15,11 @@ class Company_Controller():
             return 'Company created successfully.'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
-    def read_company(self, id:int):
+    def read_company(self, id:int) -> str | dict:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
             if company:
@@ -28,12 +28,12 @@ class Company_Controller():
                 return 'Company not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
         
 
-    def read_companies(self):
+    def read_companies(self) -> str | dict:
         try:
             companies = db.session.query(Company).all()
             if companies:
@@ -43,13 +43,13 @@ class Company_Controller():
                 return 'Companies not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
 
 
-    def update_company(self, id:int, new_data:dict):
+    def update_company(self, id:int, new_data:dict) -> str:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
             if company:
@@ -62,12 +62,12 @@ class Company_Controller():
                 return 'Company not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
 
-    def delete_company(self, id:int):
+    def delete_company(self, id:int) -> str:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
             if company:
@@ -78,6 +78,6 @@ class Company_Controller():
                 return 'Company not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()

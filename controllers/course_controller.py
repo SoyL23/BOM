@@ -15,12 +15,12 @@ class Course_Controller():
             return 'Course created successfully.'    
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
         
 
-    def read_course(self, id:int):
+    def read_course(self, id:int) -> str | dict:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
             if course:
@@ -29,11 +29,11 @@ class Course_Controller():
                 return 'Course not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
-    def read_courses(self):
+    def read_courses(self) -> str | dict:
         try:
             courses = db.session.query(Course).all()
             if courses:
@@ -43,12 +43,12 @@ class Course_Controller():
                 return 'Courses not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
         
 
-    def update_course(self, id:int, new_data:dict):
+    def update_course(self, id:int, new_data:dict) -> str:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
             if course:
@@ -61,11 +61,11 @@ class Course_Controller():
                 return 'Course not Found' 
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
-    def delete_course(self, id:int):
+    def delete_course(self, id:int) -> str:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
             if course:
@@ -76,6 +76,6 @@ class Course_Controller():
                 return 'Course not found.'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()

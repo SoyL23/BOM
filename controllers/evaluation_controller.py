@@ -13,7 +13,7 @@ class Evaluation_Controller:
             return 'Evaluation created successfully.'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
     
@@ -27,7 +27,7 @@ class Evaluation_Controller:
                      return 'Evaluation not found'   
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
@@ -40,7 +40,7 @@ class Evaluation_Controller:
                     return data
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
@@ -57,7 +57,7 @@ class Evaluation_Controller:
                      return 'User not found.'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
@@ -73,6 +73,6 @@ class Evaluation_Controller:
                 return "Evaluation not found."
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()

@@ -21,7 +21,7 @@ class User_Controller():
             return 'Username has been used'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
         
@@ -41,7 +41,7 @@ class User_Controller():
                 return 'User not found.'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
     #---END Read User by id---#
@@ -58,7 +58,7 @@ class User_Controller():
                 return 'Users not found'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
     #---END Read All Users---#
@@ -85,7 +85,7 @@ class User_Controller():
             return 'Username has been used'
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
@@ -106,7 +106,7 @@ class User_Controller():
                 return "User not found."
         except Exception as e:
             db.session.rollback()
-            return str(e)
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
