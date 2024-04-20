@@ -51,7 +51,8 @@ class Employee_Controller:
                 employee = db.session.query(Employee).filter(Employee.id == id).first()
                 if employee:
                     for attribute, data in new_data.items():
-                        setattr(employee, attribute, data)
+                        if attribute != 'id':
+                            setattr(employee, attribute, data)
                     return 'Employee updated successfully.'
                 else:
                     return 'Employee Not Found'

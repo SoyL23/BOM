@@ -37,7 +37,8 @@ class User_Data_Controller:
                 user_data = db.session.query(User_Data).filter(User_Data.id == id).first()
                 if user_data:
                     for attribute, data in new_data.items():
-                         setattr(user_data, attribute, data)
+                        if attribute != 'id':
+                            setattr(user_data, attribute, data)
                     return 'User data updated succesfully.'
                 else:
                      return 'User data not found.'

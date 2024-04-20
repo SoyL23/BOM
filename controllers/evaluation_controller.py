@@ -50,7 +50,8 @@ class Evaluation_Controller:
                 evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
                 if evaluation:
                     for attribute, data in new_data.items():
-                        setattr(evaluation, attribute, data)
+                        if attribute != 'id':
+                            setattr(evaluation, attribute, data)
                     db.session.commit()
                     return "Evaluation updated successfully."
                 else:
