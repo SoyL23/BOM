@@ -19,7 +19,7 @@ def add_course():
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
         
 #---END CREATE ROUTE---#
 
@@ -39,7 +39,7 @@ def get_course(id:int):
             else:
                 return make_response(course, 200)
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
         
     #---END READ BY ID---#
 
@@ -56,7 +56,7 @@ def get_courses():
             else:
                 return jsonify(courses), 200
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
     #---END READ ALL ---#
 
@@ -77,7 +77,7 @@ def edit_course(id:int):
             else:
                 return 'Needed data to update', 400
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
 #---END UPDATE ROUTE---#
 
@@ -92,6 +92,6 @@ def remove_course(id:int):
             response = controller.delete_course(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
         
 #---END DELETE ROUTE---#

@@ -11,7 +11,7 @@ def add_employee():
             pass
             
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 #---END CREATE ROUTE---#
 
 
@@ -24,7 +24,7 @@ def get_employee():
         try:
             pass
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -34,7 +34,7 @@ def get_employees():
         try:
             pass
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
     #---END READ ALL ---#
 
@@ -48,7 +48,7 @@ def edit_employee():
         try:
             pass
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
 #---END UPDATE ROUTE---#
 
@@ -61,5 +61,5 @@ def remove_employee():
         try:
             pass
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 #---END DELETE ROUTE---#

@@ -6,6 +6,7 @@ class Company_Controller():
     def __init__(self):
         pass
 
+#---INIT CREATE COMPANY CONTROLLER---#
     def create_company(self, company_data:dict) -> str:
         try:
             company:object = Company(**company_data)
@@ -18,7 +19,9 @@ class Company_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END CREATE COMPANY CONTROLLER---#
 
+#---INIT READ COMPANY CONTROLLER---#
     def read_company(self, id:int) -> str | dict:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
@@ -31,8 +34,10 @@ class Company_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END READ COMPANY CONTROLLER---#
         
 
+#---INIT READ ALL COMPANIES CONTROLLER---#
     def read_companies(self) -> str | dict:
         try:
             companies = db.session.query(Company).all()
@@ -46,9 +51,10 @@ class Company_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END READ ALL COMPANIES CONTROLLER---#
 
 
-
+#---INIT UPDATE COMPANY CONTROLLER---#
     def update_company(self, id:int, new_data:dict) -> str:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
@@ -65,8 +71,9 @@ class Company_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END UPDATE COMPANY CONTROLLER---#
 
-
+#---INIT DELETE COMPANY CONTROLLER---#
     def delete_company(self, id:int) -> str:
         try:
             company = db.session.query(Company).filter(Company.id  == id).first()
@@ -81,3 +88,4 @@ class Company_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END DELETE COMPANY CONTROLLER---#

@@ -3,10 +3,11 @@ from db.db import db
 
 class Controller:
     
-    def create_(self):
+    def create_(self, data:dict, Class):
         try:
+            new_data = Class(**data)
             with db.session.begin():
-                db.session.add()
+                db.session.add(new_data)
                 db.session.commit()    
         except:
             db.session.rollback()

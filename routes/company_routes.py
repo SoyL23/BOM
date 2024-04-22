@@ -19,7 +19,7 @@ def add_company():
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 #---END CREATE ROUTE---#
 
 
@@ -37,7 +37,7 @@ def get_company(id:int):
             else:
                 return make_response(company, 200)
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -52,7 +52,7 @@ def get_companies():
             else:
                 return jsonify(companies), 200
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
     #---END READ ALL ---#
 
@@ -72,7 +72,7 @@ def edit_company(id:int):
             else:
                 return 'Need data to update', 400
         except Exception as e:
-            return str(e)
+            return f'Error: {str(e)}'
 
 #---END UPDATE ROUTE---#
 
@@ -87,5 +87,5 @@ def remove_company(id:int):
             response:str = controller.delete_company(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:    
-            return str(e)
+            return f'Error: {str(e)}'
 #---END DELETE ROUTE---#

@@ -6,6 +6,7 @@ class Course_Controller():
     def __init__(self):
         pass
 
+#---INIT CREATE COURSE CONTROLLER---#
     def create_course(self, course_data:dict) -> str:
         try:
             course:object = Course(**course_data)
@@ -18,8 +19,10 @@ class Course_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
-        
+#---END COURSE CONTROLLER---#            
 
+        
+#---INIT COURSE CONTROLLER---#
     def read_course(self, id:int) -> str | dict:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
@@ -32,7 +35,9 @@ class Course_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END COURSE CONTROLLER---#            
 
+#---INIT COURSE CONTROLLER---#
     def read_courses(self) -> str | dict:
         try:
             courses = db.session.query(Course).all()
@@ -46,8 +51,9 @@ class Course_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END COURSE CONTROLLER---#            
         
-
+#---INIT COURSE CONTROLLER---#
     def update_course(self, id:int, new_data:dict) -> str:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
@@ -64,7 +70,9 @@ class Course_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END COURSE CONTROLLER---#
 
+#---INIT COURSE CONTROLLER---#
     def delete_course(self, id:int) -> str:
         try:
             course:object = db.session.query(Course).filter(Course.id == id).first()
@@ -79,3 +87,4 @@ class Course_Controller():
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+#---END CONTROLLER---#            

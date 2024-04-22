@@ -19,10 +19,10 @@ class User_Data_Controller:
     def read_data(self, id:int) -> str | dict:
         try:
             with db.session.begin():
-                 data = db.session.query(User_Data).filter(User_Data.id == id).first()
-                 if data:
-                     return data.to_dict()
-                 else:
+                data = db.session.query(User_Data).filter(User_Data.id == id).first()
+                if data:
+                    return data.to_dict()
+                else:
                      return 'User data not found.'   
         except Exception as e:
             db.session.rollback()
@@ -31,7 +31,7 @@ class User_Data_Controller:
             db.session.close()
 
 
-    def update_data(self, new_data:dict):
+    def update_data(self,id:int, new_data:dict) -> str:
         try:
             with db.session.begin():
                 user_data = db.session.query(User_Data).filter(User_Data.id == id).first()
@@ -42,22 +42,22 @@ class User_Data_Controller:
                     return 'User data updated succesfully.'
                 else:
                      return 'User data not found.'
-                pass
-        except:
+        except Exception as e:
             db.session.rollback()
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
 
-    def delete_data(self):
+    def delete_data(self, id:int) -> str:
         try:
-            
             with db.session.begin():
                 user_data = db.session.query(User_Data).filter(User_Data.id == id).first()
                 if user_data:
                     db.session.delete(user_data)
                     db.session.commit()
                     return 'Data deleted successfully.'
-        except:
+        except Exception as e:
             db.session.rollback()
+            return f'Error: {str(e)}'
         finally:
             db.session.close()
