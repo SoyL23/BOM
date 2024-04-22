@@ -3,11 +3,11 @@ class Config:
     #Esta clase crea el String que se usa como motor de consultas SQL
     
     def __init__(self):
-        __data:dict = self.__load_config()
-        self.__user:str = __data["DB_USER"]
-        self.__password:str = __data["DB_PASSWORD"]  
-        self.__host:str = __data["DB_HOST"]
-        self.__db:str = __data["DB_NAME"]
+        self.__data:dict = self.__load_config()
+        self.__user:str = self.__data["DB_USER"]
+        self.__password:str = self.__data["DB_PASSWORD"]  
+        self.__host:str = self.__data["DB_HOST"]
+        self.__db:str = self.__data["DB_NAME"]
 
     @property
     def engine(self) -> str:

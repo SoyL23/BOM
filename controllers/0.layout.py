@@ -12,7 +12,6 @@ class Controller:
         except:
             db.session.rollback()
         finally:
-
             db.session.close()
     
     def read_(self):

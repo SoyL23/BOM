@@ -13,7 +13,7 @@ def add_user():
             form = User_Form()
             if form.validate_on_submit():
                 data:dict = {key: value for key, value in form.data.items() if key != 'confirm_password'}
-                controller = User_Controller()
+                controller:object = User_Controller()
                 response = controller.create_user(user_data=data)
                 return make_response(f'{response}!', 201)
             else:
@@ -34,11 +34,11 @@ def get_user(id:int):
             controller:object = User_Controller()
             user = controller.read_user(id=id)
             if isinstance(user, str):
-                return user
+                return user, 404
             else:
                 return make_response(user, 200)
         except Exception as e:
-            return str(e)
+            return make_response(f'Error: {e}', 400)
     #---END Read User by id route
     
     #---READ ALL USERS ROUTE---#
@@ -46,14 +46,14 @@ def get_user(id:int):
 def get_users():
     if request.method == 'GET':    
         try:
-            controller = User_Controller()
+            controller:object = User_Controller()
             users = controller.read_users()
             if isinstance(users, str):
-                return users, 500
+                return users, 404
             else:
                 return jsonify(users), 200
         except Exception as e:
-            return str(e)
+            return make_response(f'Error: {e}', 400)
     #---END READ ALL USERS ROUTE---#
 
 
@@ -67,7 +67,7 @@ def get_users():
 def edit_user(id:int):
     if request.method == 'PUT':
         try:
-            data = request.get_json()
+            data:dict = request.get_json()
             if data:
                 controller:object = User_Controller()
                 response:str = controller.update_user(id=id, new_data=data)

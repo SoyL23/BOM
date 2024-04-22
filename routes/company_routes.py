@@ -19,7 +19,7 @@ def add_company():
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
-            return f'Error: {str(e)}'
+            return make_response(f'Error: {e}', 400)
 #---END CREATE ROUTE---#
 
 
@@ -37,7 +37,7 @@ def get_company(id:int):
             else:
                 return make_response(company, 200)
         except Exception as e:
-            return f'Error: {str(e)}'
+            return make_response(f'Error: {e}', 400)
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -52,7 +52,7 @@ def get_companies():
             else:
                 return jsonify(companies), 200
         except Exception as e:
-            return f'Error: {str(e)}'
+            return make_response(f'Error: {e}', 400)
 
     #---END READ ALL ---#
 
@@ -64,7 +64,7 @@ def get_companies():
 def edit_company(id:int):
     if request.method == 'PUT':
         try:
-            data = request.get_json()
+            data:dict = request.get_json()
             if data:
                 controller:object = Company_Controller()
                 response:str = controller.update_company(id=id, new_data=data)
@@ -72,7 +72,7 @@ def edit_company(id:int):
             else:
                 return 'Need data to update', 400
         except Exception as e:
-            return f'Error: {str(e)}'
+            return make_response(f'Error: {e}', 400)
 
 #---END UPDATE ROUTE---#
 
@@ -87,5 +87,5 @@ def remove_company(id:int):
             response:str = controller.delete_company(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:    
-            return f'Error: {str(e)}'
+            return make_response(f'Error: {e}', 400)
 #---END DELETE ROUTE---#
