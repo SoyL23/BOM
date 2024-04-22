@@ -1,6 +1,7 @@
+from model.company_model import Company
 from db.db import Base
-from sqlalchemy import Column, Integer, String, Text, DECIMAL
-
+from sqlalchemy import Column, Integer, String, Text, DECIMAL, ForeignKey
+from sqlalchemy.orm import relationship
 class Course(Base):
 
     __tablename__ = 'Courses'
@@ -10,6 +11,9 @@ class Course(Base):
     price = Column(DECIMAL(precision=10, scale=2), nullable=False, name='Course_Price')
     description = Column(Text, nullable=True, name='Description_Course')
     duration = Column(String(length=50), nullable=False, name='Course_Description')
+
+    company_id = Column(Integer(), ForeignKey('Companies.Company_id'), nullable=False, name='Company_id')
+    courses = relationship(Company, backref='courses')
 
     
     def __init__(self, name:str, price:float, description:str, duration:str):

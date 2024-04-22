@@ -15,6 +15,8 @@ class User_Data(Base):
     document_number = Column(String(length=15), nullable=False, name='Document_Number')
     document_type = Column(Enum( 'Cedula_Ciudadanía' , 'Cedula_Extranjería' ,
                                 'Pasaporte' , 'NIT', 'PEP' ), nullable=False, name='Document_Type')
+    document_city = Column(Integer(), ForeignKey('Cities.City_id'), nullable=False, name='City_Document')
+    city_document = relationship(City, backref='documents')
 
     role_id = Column(Integer(), ForeignKey('Roles.Role_id'), nullable=False, name='role_id')
     role = relationship(Role, back_populates='user_data', uselist=False)

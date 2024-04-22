@@ -1,11 +1,8 @@
 from db.db import db
-from model.user_model import User
+from models.user_model import User
 from sqlalchemy.exc import IntegrityError
 
 class User_Controller():
-
-    def __init__(self):
-        print('HI MADAFAKAS!')
 
 #---CREATE USER CONTROLLER---#
 

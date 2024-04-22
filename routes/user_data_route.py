@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 from controllers.user_data_controller import User_Data_Controller
 from forms.user_data_form import User_Data_Form
 
-user_data_bp = Blueprint('', __name__)
+user_data_bp = Blueprint('user_data', __name__)
 
 #---CREATE ROUTE---#
 
