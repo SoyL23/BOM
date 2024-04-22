@@ -13,7 +13,7 @@ def add_evaluation():
             form = Evaluation_Form()
             if form.validate_on_submit():
                 data:dict = {key:value for key, value in form.data.items()}
-                controller = Evaluation_Controller()
+                controller:object = Evaluation_Controller()
                 controller.create_evaluation(data)
             else:
                 return make_response({'errors': form.errors}),400
@@ -29,7 +29,7 @@ def add_evaluation():
 def get_evaluation(id:int):
     if request.method == 'GET':
         try:
-            controller = Evaluation_Controller()
+            controller:object = Evaluation_Controller()
             evaluation = controller.read_evaluation(id=id)
             if isinstance(evaluation, str):
                 return evaluation, 404
@@ -44,7 +44,7 @@ def get_evaluation(id:int):
 def get_evaluations():
     if request.method == 'GET':
         try:
-            controller = Evaluation_Controller()
+            controller:object = Evaluation_Controller()
             evaluations = controller.read_evaluations()
             if isinstance(evaluations, str):
                 return evaluations,404
@@ -81,7 +81,7 @@ def edit_evaluation():
 def remove_evaluation(id:int):
     if request.method == 'DELETE':
         try:
-            controller = Evaluation_Controller()
+            controller:object = Evaluation_Controller()
             response = controller.delete_evaluation(id = id)
             return make_response(f'{response}!', 200)
         except Exception as e:

@@ -49,10 +49,10 @@ def get_course(id:int):
 def get_courses():
     if request.method == 'GET':
         try:
-            controller = Course_Controller()
+            controller:object = Course_Controller()
             courses = controller.read_courses()
             if isinstance(courses, str):
-                return courses, 500
+                return courses, 404
             else:
                 return jsonify(courses), 200
         except Exception as e:
@@ -88,7 +88,7 @@ def edit_course(id:int):
 def remove_course(id:int):
     if request.method == 'DELETE':
         try:
-            controller = Course_Controller()
+            controller:object = Course_Controller()
             response = controller.delete_course(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:

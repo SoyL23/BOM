@@ -12,8 +12,8 @@ def add_employee():
         try:
             form = Employee_Form()
             if form.validate_on_submit():
-                data = form.data
-                controller = Employee_Controller()
+                data:dict = form.data
+                controller:object = Employee_Controller()
                 response = controller.create_employee(employee_data=data)
                 return make_response(f'{response}!', 201)
             else:
@@ -30,7 +30,7 @@ def add_employee():
 def get_employee(id:int):
     if request.method == 'GET':
         try:
-            controller = Employee_Controller()
+            controller:object = Employee_Controller()
             employee = controller.read_employee(id=id)
             if isinstance(employee, str):
                 return employee
@@ -45,7 +45,7 @@ def get_employee(id:int):
 def get_employees():
     if request.method == 'GET':
         try:
-            controller = Employee_Controller()
+            controller:object = Employee_Controller()
             employees = controller.read_employees()
             if isinstance(employees, str):
                 return employees
@@ -68,7 +68,7 @@ def edit_employee(id:int):
         try:
             data:dict = request.get_json()
             if data:
-                controller = Employee_Controller()
+                controller:object = Employee_Controller()
                 response = controller.update_employee(id=id, new_data=data)
                 return make_response(f'{response}!', 200)
             else:
@@ -86,7 +86,7 @@ def edit_employee(id:int):
 def remove_employee(id:int):
     if request.method == 'DELETE':
         try:
-            controller = Employee_Controller()
+            controller:object = Employee_Controller()
             response = controller.delete_employee(id)
             return make_response(f'{response}!', 200)
         except Exception as e:

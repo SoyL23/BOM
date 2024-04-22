@@ -14,6 +14,9 @@ class User_Data_Form(FlaskForm):
                                                           ('NIT', 'NIT'),
                                                           ('PEP', 'PEP')],
                                 validators=[DataRequired(message='Document Type is required')])
-    role_id = IntegerField('Role_ID', validators=[DataRequired(message='Role ID is required')])
-    user_id = IntegerField('User_ID', validators=[DataRequired(message='User ID is required')])
-    city_id = IntegerField('City_ID', validators=[DataRequired(message='City ID is required')])
+    role_id = IntegerField('Role_ID',
+                           validators=[DataRequired(message='Role ID is required')])
+    user_id = IntegerField('User_ID',
+                           validators=[DataRequired(message='User ID is required')])
+    city_id = IntegerField('City_ID',
+                           validators=[DataRequired(message='City ID is required')])

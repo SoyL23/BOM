@@ -5,7 +5,6 @@ from forms.user_form import User_Form
 user_bp = Blueprint('user', __name__ )
 
 #---CREATE USER ROUTE---#
-
 @user_bp.route('/api/v1/user/create', methods=['POST'])
 def add_user():
     if request.method == 'POST':
@@ -22,10 +21,7 @@ def add_user():
             return make_response(f'Error: {e}', 400)
 #---END CREATE USER ROUTE---#
 
-
-
 #---READ USER ROUTE---#
-
     #---Read User by id route
 @user_bp.route('/api/v1/user/read/<id>')
 def get_user(id:int):
@@ -56,13 +52,9 @@ def get_users():
             return make_response(f'Error: {e}', 400)
     #---END READ ALL USERS ROUTE---#
 
-
 #---END READ USER ROUTE---#
 
-
-
 #---UPDATE USER ROUTE--#
-
 @user_bp.route('/api/v1/user/update/<id>', methods=['PUT'])
 def edit_user(id:int):
     if request.method == 'PUT':
@@ -76,13 +68,9 @@ def edit_user(id:int):
                 return 'Needed data to update!'
         except Exception as e:
             return make_response(f'Error: {e}', 400)
-
 #---UPDATE USER ROUTE---#
 
-
-
 #---DELETE USER ROUTE---#
-
 @user_bp.route('/api/v1/user/delete/<id>', methods=['DELETE'])
 def remove_user(id:int):
     if request.method == 'DELETE':
@@ -92,5 +80,4 @@ def remove_user(id:int):
             return make_response(f'{response}!', 200)
         except Exception as e:
             return make_response(f'Error: {e}', 400)
-    
 #---END DELETE USER ROUTE---#

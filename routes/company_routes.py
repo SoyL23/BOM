@@ -5,7 +5,6 @@ from controllers.company_controller import Company_Controller
 company_bp = Blueprint('company', __name__)
 
 #---CREATE ROUTE---#
-
 @company_bp.route('/api/v1/company/create', methods=['POST'])
 def add_company():
     if request.method == 'POST':
@@ -58,7 +57,6 @@ def get_companies():
 
 #---END READ  ROUTE---#
 
-
 #---UPDATE  ROUTE---#
 @company_bp.route('/api/v1/company/update/<id>',  methods=['PUT'])
 def edit_company(id:int):
@@ -76,9 +74,7 @@ def edit_company(id:int):
 
 #---END UPDATE ROUTE---#
 
-
 #---DELETE  ROUTE---#
-
 @company_bp.route('/api/v1/company/delete/<id>', methods=['DELETE'])
 def remove_company(id:int):
     if request.method == 'DELETE':
