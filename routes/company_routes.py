@@ -32,7 +32,7 @@ def get_company(id:int):
             controller:object = Company_Controller()
             company = controller.read_company(id=id)
             if isinstance(company, str):
-                return company
+                return company, 404
             else:
                 return make_response(company, 200)
         except Exception as e:
@@ -47,7 +47,7 @@ def get_companies():
             controller:object = Company_Controller()
             companies = controller.read_companies()
             if isinstance(companies, str):
-                return companies, 500
+                return companies, 404
             else:
                 return jsonify(companies), 200
         except Exception as e:

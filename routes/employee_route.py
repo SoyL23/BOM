@@ -81,7 +81,6 @@ def edit_employee(id:int):
 
 
 #---DELETE  ROUTE---#
-
 @employee_bp.route('/api/v1/employee/delete/<id>', methods=['DELETE'])
 def remove_employee(id:int):
     if request.method == 'DELETE':

@@ -35,7 +35,7 @@ def get_course(id:int):
             controller:object = Course_Controller()
             course = controller.read_course(id=id)
             if isinstance(course, str):
-                return course
+                return course, 404
             else:
                 return make_response(course, 200)
         except Exception as e:
