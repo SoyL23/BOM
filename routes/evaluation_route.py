@@ -14,7 +14,8 @@ def add_evaluation():
             if form.validate_on_submit():
                 data:dict = {key:value for key, value in form.data.items()}
                 controller:object = Evaluation_Controller()
-                controller.create_evaluation(data)
+                response = controller.create_evaluation(data)
+                return f'{response}!',201
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
@@ -34,7 +35,7 @@ def get_evaluation(id:int):
             if isinstance(evaluation, str):
                 return evaluation, 404
             else:
-                return make_response(evaluation, 200)
+                return jsonify(evaluation), 200
         except Exception as e:
             return make_response(f'Error: {e}', 400)
     #---END READ  BY ID---#

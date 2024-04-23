@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, DecimalField
+from wtforms import StringField, TextAreaField, DecimalField, IntegerField
 from wtforms.validators import DataRequired, Length
 
 class Course_Form(FlaskForm):
@@ -22,3 +22,4 @@ class Course_Form(FlaskForm):
     price = DecimalField('Price', validators=[
         DataRequired(message='Price is required.')
     ])
+    company_id = IntegerField('company_id',validators=[DataRequired(message='Company is required.')])

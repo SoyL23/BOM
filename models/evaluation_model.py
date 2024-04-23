@@ -34,5 +34,5 @@ class Evaluation(Base):
             'status': self.status,
             'questions': self.questions,
             'course_id': self.course_id,
-            'student_id': self.student_id.to_dict()['full_name']
+            'student_id': self.student_id
         }

@@ -9,8 +9,9 @@ class Controller:
                 db.session.add(certificate)
                 db.session.commit()
                 return 'Certificate created successfully.'   
-        except:
+        except Exception as e:
             db.session.rollback()
+            return str(e)
         finally:
             db.session.close()
     
@@ -22,8 +23,9 @@ class Controller:
                      return certificate.to_dict()
                  else:
                      return 'Certificate not found.'
-        except:
+        except Exception as e:
             db.session.rollback()
+            return str(e)
         finally:
             db.session.close()
 
@@ -36,8 +38,9 @@ class Controller:
                     return data
                 else:
                     return 'Certificates not found'  
-        except:
+        except Exception as e:
             db.session.rollback()
+            return str(e)
         finally:
             db.session.close()
 
@@ -50,7 +53,7 @@ class Controller:
                         if attribute != 'id':
                             setattr(certificate, attribute, data)
                     db.session.commit()
-                    return 'Certificate updatep successfully'
+                    return 'Certificate updated successfully'
                 else: 
                     return 'Certificate not found'
         except Exception as e:

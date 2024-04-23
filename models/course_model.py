@@ -16,11 +16,12 @@ class Course(Base):
     courses = relationship(Company, backref='courses')
 
     
-    def __init__(self, name:str, price:float, description:str, duration:str):
+    def __init__(self, name:str, price:float, description:str, duration:str, company_id:int):
         self.name = name
         self.price = price
         self.duration = duration
         self.description = description
+        self.company_id = company_id
 
     def to_dict(self):
         return {

@@ -20,16 +20,17 @@ class Evaluation_Controller:
     def read_evaluation(self, id:int) -> str | dict:
         try:
             with db.session.begin():
-                 evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
-                 if evaluation:
-                     return evaluation.to_dict()
-                 else:
-                     return 'Evaluation not found'   
+                evaluation = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+                if evaluation:
+                    return evaluation.to_dict()
+                else:
+                    return 'Evaluation not found'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
         finally:
             db.session.close()
+
 
     def read_evaluations(self) -> str | dict:
         try:
