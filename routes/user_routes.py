@@ -32,7 +32,7 @@ def get_user(id:int):
             if isinstance(user, str):
                 return user, 404
             else:
-                return make_response(user, 200)
+                return jsonify(user), 200
         except Exception as e:
             return make_response(f'Error: {e}', 400)
     #---END Read User by id route

@@ -61,7 +61,7 @@ def get_evaluations():
 
 #---UPDATE  ROUTE---#
 @evaluation_bp.route('/api/v1/evaluation/update/<id>',  methods=['PUT'])
-def edit_evaluation():
+def edit_evaluation(id:int):
     if request.method == 'PUT':
         try:
             data:dict = request.get_json()
@@ -78,7 +78,7 @@ def edit_evaluation():
 
 
 #---DELETE  ROUTE---#
-@evaluation_bp.route('/api/v1/evaluationdelete/<id>', methods=['DELETE'])
+@evaluation_bp.route('/api/v1/evaluation/delete/<id>', methods=['DELETE'])
 def remove_evaluation(id:int):
     if request.method == 'DELETE':
         try:

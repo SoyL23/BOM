@@ -26,13 +26,14 @@ class User(Base):
         self.birthdate = birthdate
         
     def to_dict(self):
+        user_data_dicts = [data.to_dict() for data in self.data] if self.data else None
         return {
             'id': self.id,
-            'full_name':f'{self.first_name} {self.last_name}',
+            'full_name': f'{self.first_name} {self.last_name}',
             'first_name': self.first_name,
             'last_name': self.last_name,
             'username': self.username,
             'birthdate': self.birthdate,
             'created_ad': self.created_ad,
-            'data': self.data.to_dict() if self.data else None
+            'data': user_data_dicts
         }

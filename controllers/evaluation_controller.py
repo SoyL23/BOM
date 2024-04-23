@@ -67,14 +67,15 @@ class Evaluation_Controller:
 
     def delete_evaluation(self, id:int) -> str:
         try:
-            evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
-            if evaluation:
-                with db.session.begin():
-                    db.session.delete(evaluation)
-                    db.session.commit()
-                    return 'Evaluation deleted successfully.'
-            else:
-                return "Evaluation not found."
+            with db.session.begin():
+                evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+                if evaluation:
+                    
+                        db.session.delete(evaluation)
+                        db.session.commit()
+                        return 'Evaluation deleted successfully.'
+                else:
+                    return "Evaluation not found."
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'

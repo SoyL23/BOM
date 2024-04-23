@@ -15,10 +15,11 @@ class City(Base):
     state_id = Column(Integer(), ForeignKey('States.State_id'), nullable=False, name='State_id')
     state = relationship(State, back_populates='cities', uselist=False)
 
-    def __init__(self, name:str, description:str, code:str):
+    def __init__(self, name:str, description:str, code:str, state_id:int):
         self.name = name
         self.description = description
         self.code = code
+        self.state_id = state_id
 
     def to_dict(self):
         return {

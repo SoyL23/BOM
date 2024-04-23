@@ -20,3 +20,4 @@ class User_Data_Form(FlaskForm):
                            validators=[DataRequired(message='User ID is required')])
     city_id = IntegerField('City_ID',
                            validators=[DataRequired(message='City ID is required')])
+    document_city_id = IntegerField('document_city_id', validators=[DataRequired(message='Document City ID is required')])
