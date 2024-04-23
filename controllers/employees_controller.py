@@ -1,4 +1,4 @@
-from model.employee_model import Employee
+from models.employee_model import Employee
 from db.db import db
 
 class Employee_Controller:

@@ -1,10 +1,10 @@
 from controllers.evaluation_controller import Evaluation_Controller as Controller
 from db.db import db
-from model.user_model import User
-from model.course_model import Course
-from model.certificate_model import Certificate
-from model.evaluation_model import Evaluation
-from model.company_model import Company
+from models.user_model import User
+from models.course_model import Course
+from models.certificate_model import Certificate
+from models.evaluation_model import Evaluation
+from models.company_model import Company
 from datetime import datetime as dt
 
 class Generate_Certificate():

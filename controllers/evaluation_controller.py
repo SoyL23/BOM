@@ -1,4 +1,4 @@
-from model.evaluation_model import Evaluation
+from models.evaluation_model import Evaluation
 from db.db import db
 
 class Evaluation_Controller:

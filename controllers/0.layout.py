@@ -1,4 +1,4 @@
-# from model. import 
+# from models. import 
 from db.db import db
 
 class Controller:

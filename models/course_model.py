@@ -1,4 +1,4 @@
-from model.company_model import Company
+from models.company_model import Company
 from db.db import Base
 from sqlalchemy import Column, Integer, String, Text, DECIMAL, ForeignKey
 from sqlalchemy.orm import relationship

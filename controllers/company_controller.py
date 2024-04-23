@@ -1,5 +1,5 @@
 from db.db import db
-from model.company_model import Company
+from models.company_model import Company
 
 class Company_Controller():
 

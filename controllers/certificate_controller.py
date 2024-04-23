@@ -1,4 +1,4 @@
-from model.certificate_model import Certificate
+from models.certificate_model import Certificate
 from db.db import db
 
 class Controller:

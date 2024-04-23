@@ -1,4 +1,4 @@
-from model.user_data_model import User_Data
+from models.user_data_model import User_Data
 from db.db import db
 
 class User_Data_Controller:

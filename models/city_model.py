@@ -1,7 +1,7 @@
 from db.db import Base
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import relationship
-from model.state_model import State
+from models.state_model import State
 
 class City(Base):
 
@@ -15,16 +15,19 @@ class City(Base):
     state_id = Column(Integer(), ForeignKey('States.State_id'), nullable=False, name='State_id')
     state = relationship(State, back_populates='cities', uselist=False)
 
-    def __init__(self:str, name:str, description:str,code:str):
+    def __init__(self, name:str, description:str, code:str):
         self.name = name
         self.description = description
         self.code = code
 
     def to_dict(self):
-        return{
+        return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
             'code': self.code,
             'state': self.state.to_dict()['name']
         }
+
+    
+    

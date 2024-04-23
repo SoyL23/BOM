@@ -1,5 +1,5 @@
 from db.db import db
-from model.course_model import Course
+from models.course_model import Course
 
 class Course_Controller():
 
