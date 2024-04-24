@@ -80,7 +80,7 @@ class Evaluation_Controller():
     def delete_evaluation(self, id:int) -> str:
         try:
             with db.session.begin():
-                evaluation:object = db.session.query(Evaluation).filter(Evaluation.id == id).first()
+                evaluation:object = db.session.query(Evaluation).get(ident=id)
                 if evaluation:
                         db.session.delete(evaluation)
                         db.session.commit()

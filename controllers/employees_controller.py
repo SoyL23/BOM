@@ -1,6 +1,7 @@
 from models.employee_model import Employee
 from db.db import db
 from sqlalchemy.exc import SQLAlchemyError
+from typing import List
 
 class Employee_Controller:
     
@@ -23,7 +24,7 @@ class Employee_Controller:
     def read_employee(self, id:int)-> str | dict:
         try:
             with db.session.begin():
-                employee = db.session.query(Employee).filter(Employee.id == id).first()
+                employee = db.session.query(Employee).get(ident=id)
                 if employee:
                     return employee.to_dict()
                 else:
@@ -58,7 +59,7 @@ class Employee_Controller:
     def update_employee(self, new_data:dict) -> str:
         try:
             with db.session.begin():
-                employee = db.session.query(Employee).filter(Employee.id == id).first()
+                employee = db.session.query(Employee).get(ident=id)
                 if employee:
                     for attribute, data in new_data.items():
                         if attribute != 'id':
@@ -77,7 +78,7 @@ class Employee_Controller:
 
     def delete_employee(self) -> str:
         try:
-            employee = db.session.query(Employee).filter(Employee.id == id).first()
+            employee = db.session.query(Employee).get(ident=id)
             if employee:
                 with db.session.begin():
                     db.session.delete(employee)

@@ -8,7 +8,7 @@ def add_(id:int):
         try:
             pass
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 @shopping_bp.route('/api/v1/shopping/read/<id>', methods=['GET'])
 def get_(id:int):
@@ -16,7 +16,7 @@ def get_(id:int):
         try:
             pass
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 @shopping_bp.route('/api/v1/shopping/update/<id>', methods=['PUT'])
 def edit_(id:int):
@@ -24,7 +24,7 @@ def edit_(id:int):
         try:
             pass
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 @shopping_bp.route('/api/v1/shopping/delete/<id>', methods=['DELETE'])
 def remove_(id:int):
@@ -32,5 +32,5 @@ def remove_(id:int):
         try:
             pass
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     

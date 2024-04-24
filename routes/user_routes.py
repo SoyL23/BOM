@@ -14,11 +14,11 @@ def add_user():
                 data:dict = {key: value for key, value in form.data.items() if key != 'confirm_password'}
                 controller:object = User_Controller()
                 response:str = controller.create_user(user_data=data)
-                return make_response(f'{response}!', status=201)
+                return make_response(f'{response}!', 201)
             else:
-                return make_response({'errors': form.errors}, status=400)
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END CREATE USER ROUTE---#
 
 #---READ USER ROUTE---#
@@ -30,11 +30,11 @@ def get_user(id:int):
             controller:object = User_Controller()
             user:str|dict = controller.read_user(id=id)
             if isinstance(user, str):
-                return make_response(f'{user}!', status=404)
+                return make_response(f'{user}!', 404)
             else:
-                return make_response(jsonify(user), status=200)
+                return make_response(jsonify(user), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END Read User by id route
     
     #---READ ALL USERS ROUTE---#
@@ -45,11 +45,11 @@ def get_users():
             controller:object = User_Controller()
             users:str|dict = controller.read_users()
             if isinstance(users, str):
-                return make_response(users, status=404)
+                return make_response(users, 404)
             else:
-                return make_response(jsonify(users), status=200)
+                return make_response(jsonify(users), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END READ ALL USERS ROUTE---#
 
 #---END READ USER ROUTE---#
@@ -65,13 +65,13 @@ def edit_user(id:int):
                     new_data:dict = form.data
                     controller:object = User_Controller()
                     response:str = controller.update_user(id=id, new_data=new_data)
-                    return make_response(f'{response}!', status=200)
+                    return make_response(f'{response}!', 200)
                 else:
-                    return make_response({'errors': form.errors} , status=400)
+                    return make_response({'errors': form.errors} , 400)
             else:
-                return make_response('Needed data to update!', status=400)
+                return make_response('Needed data to update!', 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---UPDATE USER ROUTE---#
 
 #---DELETE USER ROUTE---#
@@ -81,7 +81,7 @@ def remove_user(id:int):
         try:
             controller:object = User_Controller()
             response:str = controller.delete_user(id)
-            return make_response(f'{response}!', status=200)
+            return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END DELETE USER ROUTE---#

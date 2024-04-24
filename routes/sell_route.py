@@ -12,7 +12,7 @@ def add_(id:int):
             response:str = controller.create_sell()
             return f'{response}!'
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/api/v1/sell/read/<id>', methods=['GET'])
@@ -26,7 +26,7 @@ def get_(id:int):
             else:
                 return make_response(jsonify(sell), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/api/v1/sell/read/all', methods=['GET'])
@@ -40,7 +40,7 @@ def get_(id:int):
             else:
                 return make_response(sells, 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/api/v1/sell/update/<id>', methods=['PUT'])
@@ -52,7 +52,7 @@ def edit_(id:int):
             response = controller.update_sell(id=id, new_data=new_data)
             return f'{response}!'
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/api/v1/sell/delete/<id>', methods=['DELETE'])
@@ -63,6 +63,6 @@ def remove_(id:int):
             response:str = controller.delete_sell(id=id)
             return f'{response}!'
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
             
     

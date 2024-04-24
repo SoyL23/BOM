@@ -1,6 +1,7 @@
 from db.db import db
 from models.user_model import User
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from typing import List
 
 class User_Controller():
 
@@ -35,7 +36,7 @@ class User_Controller():
     def read_user(self, id:int) -> str | dict:
         try:
             with db.session.begin():
-                user:object = db.session.query(User).filter(User.id == id).first()
+                user:object = db.session.query(User).get(ident=id)
                 if user:
                     return user.to_dict()
                 else:
@@ -54,7 +55,7 @@ class User_Controller():
     def read_users(self) -> str | dict:
         try:
             with db.session.begin():
-                users = db.session.query(User).all()
+                users:List[User] = db.session.query(User).all()
                 if users:
                     data:dict = {user.id: user.to_dict() for user in users}
                     return data
@@ -78,7 +79,7 @@ class User_Controller():
     def update_user(self, id:int, new_data:dict) -> str:
         try:
             with db.session.begin():    
-                user:object = db.session.query(User).filter(User.id == id).first()
+                user:object = db.session.query(User).get(ident=id)
                 if user:
                     for attribute, data in new_data.items():
                         if attribute != 'id':
@@ -104,7 +105,7 @@ class User_Controller():
     def delete_user(self, id:int) -> str:
         try:
             with db.session.begin():    
-                user:object = db.session.query(User).filter(User.id == id).first()
+                user:object = db.session.query(User).get(ident=id)
                 if user:
                     db.session.delete(user)
                     db.session.commit()

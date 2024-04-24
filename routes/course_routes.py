@@ -15,11 +15,11 @@ def add_course():
                 data:dict = form.data
                 controller:object = Course_Controller()
                 response:str = controller.create_course(course_data=data)
-                return make_response(f'{response}!', status=201)
+                return make_response(f'{response}!', 201)
             else:
-                return make_response({'errors': form.errors}, status=400)
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
         
 #---END CREATE ROUTE---#
 
@@ -35,11 +35,11 @@ def get_course(id:int):
             controller:object = Course_Controller()
             course:str|dict = controller.read_course(id=id)
             if isinstance(course, str):
-                return make_response(f'{course}!' , status=404)
+                return make_response(f'{course}!' , 404)
             else:
-                return make_response(jsonify(course), status=200)
+                return make_response(jsonify(course), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
         
     #---END READ BY ID---#
 
@@ -52,11 +52,11 @@ def get_courses():
             controller:object = Course_Controller()
             courses:str|dict = controller.read_courses()
             if isinstance(courses, str):
-                return make_response(f'{courses}!' , status=404)
+                return make_response(f'{courses}!' , 404)
             else:
-                return make_response(jsonify(courses), status=200)
+                return make_response(jsonify(courses), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
     #---END READ ALL ---#
 
@@ -75,13 +75,13 @@ def edit_course(id:int):
                     new_data:dict = form.data
                     controller:object = Course_Controller()
                     response:str = controller.update_course(id=id, new_data=new_data)
-                    return make_response(f'{response}!', status=200)
+                    return make_response(f'{response}!', 200)
                 else:
-                    return make_response({'errors': form.errors} , status=400)
+                    return make_response({'errors': form.errors} , 400)
             else:
-                return make_response('Needed data to update', status=400)
+                return make_response('Needed data to update', 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 #---END UPDATE ROUTE---#
 
@@ -96,6 +96,6 @@ def remove_course(id:int):
             response:str = controller.delete_course(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
         
 #---END DELETE ROUTE---#

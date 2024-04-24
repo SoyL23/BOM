@@ -14,11 +14,11 @@ def add_company():
                 data:dict = form.data
                 controller:object = Company_Controller()
                 response = controller.create_company(company_data=data)
-                return make_response(f'{response}!', status=201)
+                return make_response(f'{response}!', 201)
             else:
-                return make_response({'errors': form.errors}, status=400)
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END CREATE ROUTE---#
 
 
@@ -32,11 +32,11 @@ def get_company(id:int):
             controller:object = Company_Controller()
             company:str|dict = controller.read_company(id=id)
             if isinstance(company, str):
-                return make_response(f'{company}' , status=404)
+                return make_response(f'{company}' , 404)
             else:
-                return make_response(jsonify(company), status=200)
+                return make_response(jsonify(company), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -47,11 +47,11 @@ def get_companies():
             controller:object = Company_Controller()
             companies:str|dict = controller.read_companies()
             if isinstance(companies, str):
-                return make_response(f'{companies}!' , status=404)
+                return make_response(f'{companies}!' , 404)
             else:
-                return make_response(jsonify(companies), status=200)
+                return make_response(jsonify(companies), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
     #---END READ ALL ---#
 
@@ -68,11 +68,11 @@ def edit_company(id:int):
                     new_data:dict = form.data
                     controller:object = Company_Controller()
                     response:str = controller.update_company(id=id, new_data=new_data)
-                    return make_response(f'{response}!', status=200)
+                    return make_response(f'{response}!', 200)
             else:
-                return make_response('Need data to update', status=400)
+                return make_response('Need data to update', 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 #---END UPDATE ROUTE---#
 
@@ -83,7 +83,7 @@ def remove_company(id:int):
         try:
             controller:object = Company_Controller()
             response:str = controller.delete_company(id=id)
-            return make_response(f'{response}!', status=200)
+            return make_response(f'{response}!', 200)
         except Exception as e:    
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END DELETE ROUTE---#

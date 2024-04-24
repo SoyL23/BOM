@@ -1,6 +1,7 @@
 from db.db import db
 from models.course_model import Course
 from sqlalchemy.exc import SQLAlchemyError
+from typing import List
 
 class Course_Controller():
 
@@ -29,7 +30,7 @@ class Course_Controller():
 #---INIT COURSE CONTROLLER---#
     def read_course(self, id:int) -> str | dict:
         try:
-            course:object = db.session.query(Course).filter(Course.id == id).first()
+            course:object = db.session.query(Course).get(ident=id)
             if course:
                 return course.to_dict()
             else:
@@ -47,7 +48,7 @@ class Course_Controller():
 #---INIT COURSE CONTROLLER---#
     def read_courses(self) -> str | dict:
         try:
-            courses = db.session.query(Course).all()
+            courses:List[Course] = db.session.query(Course).all()
             if courses:
                 data:dict = {course.id:course.to_dict() for course in courses}    
                 return data
@@ -66,7 +67,7 @@ class Course_Controller():
 #---INIT COURSE CONTROLLER---#
     def update_course(self, id:int, new_data:dict) -> str:
         try:
-            course:object = db.session.query(Course).filter(Course.id == id).first()
+            course:object = db.session.query(Course).get(ident=id)
             if course:
                 for attribute, data in new_data.items():
                     if attribute != 'id':
@@ -88,7 +89,7 @@ class Course_Controller():
 #---INIT COURSE CONTROLLER---#
     def delete_course(self, id:int) -> str:
         try:
-            course:object = db.session.query(Course).filter(Course.id == id).first()
+            course:object = db.session.query(Course).get(ident=id)
             if course:
                 db.session.delete(course)
                 db.session.commit()

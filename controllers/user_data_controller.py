@@ -23,7 +23,7 @@ class User_Data_Controller:
     def read_data(self, id:int) -> str | dict:
         try:
             with db.session.begin():
-                data = db.session.query(User_Data).filter(User_Data.id == id).first()
+                data = db.session.query(User_Data).get(ident=id)
                 if data:
                     return data.to_dict()
                 else:
@@ -41,7 +41,7 @@ class User_Data_Controller:
     def update_data(self,id:int, new_data:dict) -> str:
         try:
             with db.session.begin():
-                user_data = db.session.query(User_Data).filter(User_Data.id == id).first()
+                user_data = db.session.query(User_Data).get(ident=id)
                 if user_data:
                     for attribute, data in new_data.items():
                         if attribute != 'id':
@@ -61,11 +61,13 @@ class User_Data_Controller:
     def delete_data(self, id:int) -> str:
         try:
             with db.session.begin():
-                user_data = db.session.query(User_Data).filter(User_Data.id == id).first()
+                user_data:User_Data = db.session.query(User_Data).get(ident=id)
                 if user_data:
                     db.session.delete(user_data)
                     db.session.commit()
                     return 'Data deleted successfully.'
+                else:
+                    return 'Data Not found.'
         except SQLAlchemyError as e:
             db.session.rollback()
             return f'DATABASE ERROR: {str(e)}'

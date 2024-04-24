@@ -1,6 +1,7 @@
 from db.db import db
 from models.company_model import Company
 from sqlalchemy.exc import SQLAlchemyError
+from typing import List
 
 class Company_Controller():
 
@@ -28,7 +29,7 @@ class Company_Controller():
 #---INIT READ COMPANY CONTROLLER---#
     def read_company(self, id:int) -> str | dict:
         try:
-            company = db.session.query(Company).filter(Company.id  == id).first()
+            company = db.session.query(Company).get(ident=id)
             if company:
                 return company.to_dict()
             else:
@@ -47,7 +48,7 @@ class Company_Controller():
 #---INIT READ ALL COMPANIES CONTROLLER---#
     def read_companies(self) -> str | dict:
         try:
-            companies = db.session.query(Company).all()
+            companies:List[Company] = db.session.query(Company).all()
             if companies:
                 data:dict = {company.id: company.to_dict() for company in companies}
                 return data
@@ -67,7 +68,7 @@ class Company_Controller():
 #---INIT UPDATE COMPANY CONTROLLER---#
     def update_company(self, id:int, new_data:dict) -> str:
         try:
-            company = db.session.query(Company).filter(Company.id  == id).first()
+            company = db.session.query(Company).get(ident=id)
             if company:
                 for attribute, data in new_data.items():
                     if attribute != 'id':
@@ -89,7 +90,7 @@ class Company_Controller():
 #---INIT DELETE COMPANY CONTROLLER---#
     def delete_company(self, id:int) -> str:
         try:
-            company = db.session.query(Company).filter(Company.id  == id).first()
+            company =db.session.query(Company).get(ident=id)
             if company:
                 db.session.delete(company)
                 db.session.commit()

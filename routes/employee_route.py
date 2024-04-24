@@ -15,11 +15,11 @@ def add_employee():
                 data:dict = form.data
                 controller:object = Employee_Controller()
                 response:str = controller.create_employee(employee_data=data)
-                return make_response(f'{response}!', status=201)
+                return make_response(f'{response}!', 201)
             else:
-                return make_response({'errors': form.errors}, status=400)
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END CREATE ROUTE---#
 
 
@@ -33,11 +33,11 @@ def get_employee(id:int):
             controller:object = Employee_Controller()
             employee:str|dict = controller.read_employee(id=id)
             if isinstance(employee, str):
-                return make_response(f'{employee}!', status=404)
+                return make_response(f'{employee}!', 404)
             else:
-                return make_response(jsonify(employee), status=200)
+                return make_response(jsonify(employee), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -48,11 +48,11 @@ def get_employees():
             controller:object = Employee_Controller()
             employees:str|dict = controller.read_employees()
             if isinstance(employees, str):
-                return make_response(f'{employees}!', status=404)
+                return make_response(f'{employees}!', 404)
             else:
-                return make_response(jsonify(employees), status=200)
+                return make_response(jsonify(employees), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
     #---END READ ALL ---#
 
@@ -72,13 +72,13 @@ def edit_employee(id:int):
                     new_data:dict = form.data
                     controller:object = Employee_Controller()
                     response:str = controller.update_employee(id=id, new_data=new_data)
-                    return make_response(f'{response}!', status=200)
+                    return make_response(f'{response}!', 200)
                 else:
-                    return make_response({'errors': form.errors} , status=400)
+                    return make_response({'errors': form.errors} , 400)
             else:
                 return 'Needed data to update!'
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     
 
 #---END UPDATE ROUTE---#
@@ -91,7 +91,7 @@ def remove_employee(id:int):
         try:
             controller:object = Employee_Controller()
             response:str = controller.delete_employee(id)
-            return make_response(f'{response}!', status=200)
+            return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END DELETE ROUTE---#

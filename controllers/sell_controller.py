@@ -1,6 +1,7 @@
 from models.sell_model import Sell
 from db.db import db
 from sqlalchemy.exc import SQLAlchemyError
+from typing import List
 
 class Sell_Controller:
     

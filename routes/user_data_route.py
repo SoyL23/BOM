@@ -19,7 +19,7 @@ def add_data():
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END CREATE ROUTE---#
 
 
@@ -33,11 +33,11 @@ def get_data(id:int):
             controller:object = User_Data_Controller()
             data:str|dict = controller.read_data(id=id)
             if isinstance(data, str):
-                return make_response(f'{data}!', status=404)
+                return make_response(f'{data}!', 404)
             else:
-                return make_response(jsonify(data), status=200)
+                return make_response(jsonify(data), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END READ  BY ID---#
 
 #---END READ  ROUTE---#
@@ -54,13 +54,13 @@ def edit_data(id:int):
                     new_data:dict = form.data
                     controller:object = User_Data_Controller()
                     response:str = controller.update_data(id=id, new_data=new_data)
-                    return make_response(f'{response}', status=200)
+                    return make_response(f'{response}', 200)
                 else:
-                    return make_response({'errors': form.errors} , status=400)
+                    return make_response({'errors': form.errors} , 400)
             else:
-                return make_response('Needed data to update!', status=400)
+                return make_response('Needed data to update!', 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 #---END UPDATE ROUTE---#
 
@@ -72,7 +72,7 @@ def remove_data(id:int):
         try:
             controller:object = User_Data_Controller()
             response:str = controller.delete_data(id=id)
-            return make_response(f'{response}!', status=200)
+            return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END DELETE ROUTE---#

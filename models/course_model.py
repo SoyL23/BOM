@@ -28,5 +28,5 @@ class Course(Base):
             'name': self.name,
             'price': self.price,
             'duration': self.duration,
-            'description': self.description
+            'description': self.description,
         }

@@ -15,11 +15,11 @@ def add_evaluation():
                 data:dict = {key:value for key, value in form.data.items()}
                 controller:object = Evaluation_Controller()
                 response:str = controller.create_evaluation(data)
-                return make_response(f'{response}!', status=201)
+                return make_response(f'{response}!', 201)
             else:
-                return make_response({'errors': form.errors}, status=400)
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END CREATE ROUTE---#
 
 
@@ -33,11 +33,11 @@ def get_evaluation(id:int):
             controller:object = Evaluation_Controller()
             evaluation:str|dict = controller.read_evaluation(id=id)
             if isinstance(evaluation, str):
-                return make_response(f'{evaluation}!', status=404)
+                return make_response(f'{evaluation}!', 404)
             else:
-                return make_response(jsonify(evaluation), status=200)
+                return make_response(jsonify(evaluation), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -48,11 +48,11 @@ def get_evaluations():
             controller:object = Evaluation_Controller()
             evaluations:str|dict = controller.read_evaluations()
             if isinstance(evaluations, str):
-                return make_response(f'{evaluations}!', status=404)
+                return make_response(f'{evaluations}!', 404)
             else:
-                return make_response(jsonify(evaluations), status=200)
+                return make_response(jsonify(evaluations), 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
     #---END READ ALL ---#
 
@@ -70,13 +70,13 @@ def edit_evaluation(id:int):
                     new_data:dict = form.data
                     controller:object = Evaluation_Controller()
                     response:str = controller.update_evaluation(id=id, new_data=new_data)
-                    return make_response(f'{response}!', status=200)
+                    return make_response(f'{response}!', 200)
                 else:
-                    return make_response({'errors': form.errors} , status=400)
+                    return make_response({'errors': form.errors} , 400)
             else:
-                return make_response('Needed data to update!', status=400)
+                return make_response('Needed data to update!', 400)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 
 #---END UPDATE ROUTE---#
 
@@ -88,7 +88,7 @@ def remove_evaluation(id:int):
         try:
             controller:object = Evaluation_Controller()
             response:str = controller.delete_evaluation(id = id)
-            return make_response(f'{response}!', status=200)
+            return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'{e}', status=400)
+            return make_response(f'{e}', 400)
 #---END DELETE ROUTE---#
