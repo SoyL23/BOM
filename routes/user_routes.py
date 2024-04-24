@@ -2,23 +2,23 @@ from flask import Blueprint, request, make_response, jsonify
 from controllers.user_controller import User_Controller
 from forms.user_form import User_Form
 
-user_bp = Blueprint('user', __name__ )
+user_bp:object = Blueprint('user', __name__ )
 
 #---CREATE USER ROUTE---#
 @user_bp.route('/api/v1/user/create', methods=['POST'])
 def add_user():
     if request.method == 'POST':
         try:
-            form = User_Form()
+            form:object = User_Form()
             if form.validate_on_submit():
                 data:dict = {key: value for key, value in form.data.items() if key != 'confirm_password'}
                 controller:object = User_Controller()
-                response = controller.create_user(user_data=data)
-                return make_response(f'{response}!', 201)
+                response:str = controller.create_user(user_data=data)
+                return make_response(f'{response}!', status=201)
             else:
-                return make_response({'errors': form.errors}),400
+                return make_response({'errors': form.errors}, status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END CREATE USER ROUTE---#
 
 #---READ USER ROUTE---#
@@ -28,13 +28,13 @@ def get_user(id:int):
      if request.method == 'GET':   
         try:
             controller:object = User_Controller()
-            user = controller.read_user(id=id)
+            user:str|dict = controller.read_user(id=id)
             if isinstance(user, str):
-                return user, 404
+                return make_response(f'{user}!', status=404)
             else:
-                return jsonify(user), 200
+                return make_response(jsonify(user), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
     #---END Read User by id route
     
     #---READ ALL USERS ROUTE---#
@@ -43,13 +43,13 @@ def get_users():
     if request.method == 'GET':    
         try:
             controller:object = User_Controller()
-            users = controller.read_users()
+            users:str|dict = controller.read_users()
             if isinstance(users, str):
-                return users, 404
+                return make_response(users, status=404)
             else:
-                return jsonify(users), 200
+                return make_response(jsonify(users), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
     #---END READ ALL USERS ROUTE---#
 
 #---END READ USER ROUTE---#
@@ -59,15 +59,19 @@ def get_users():
 def edit_user(id:int):
     if request.method == 'PUT':
         try:
-            data:dict = request.get_json()
-            if data:
-                controller:object = User_Controller()
-                response:str = controller.update_user(id=id, new_data=data)
-                return make_response(f'{response}!', 200)
+            form:object = User_Form()
+            if form.data:
+                if form.validate_on_submit():
+                    new_data:dict = form.data
+                    controller:object = User_Controller()
+                    response:str = controller.update_user(id=id, new_data=new_data)
+                    return make_response(f'{response}!', status=200)
+                else:
+                    return make_response({'errors': form.errors} , status=400)
             else:
-                return 'Needed data to update!'
+                return make_response('Needed data to update!', status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---UPDATE USER ROUTE---#
 
 #---DELETE USER ROUTE---#
@@ -75,9 +79,9 @@ def edit_user(id:int):
 def remove_user(id:int):
     if request.method == 'DELETE':
         try:
-            controller = User_Controller()
-            response = controller.delete_user(id)
-            return make_response(f'{response}!', 200)
+            controller:object = User_Controller()
+            response:str = controller.delete_user(id)
+            return make_response(f'{response}!', status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END DELETE USER ROUTE---#

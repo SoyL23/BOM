@@ -2,23 +2,23 @@ from flask import Blueprint, request, make_response, jsonify
 from forms.company_form import Company_Form
 from controllers.company_controller import Company_Controller
 
-company_bp = Blueprint('company', __name__)
+company_bp:object = Blueprint('company', __name__)
 
 #---CREATE ROUTE---#
 @company_bp.route('/api/v1/company/create', methods=['POST'])
 def add_company():
     if request.method == 'POST':
         try:
-            form = Company_Form()
+            form:object = Company_Form()
             if form.validate_on_submit():
-                data = form.data
+                data:dict = form.data
                 controller:object = Company_Controller()
                 response = controller.create_company(company_data=data)
-                return make_response(f'{response}!', 201)
+                return make_response(f'{response}!', status=201)
             else:
-                return make_response({'errors': form.errors}),400
+                return make_response({'errors': form.errors}, status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END CREATE ROUTE---#
 
 
@@ -30,13 +30,13 @@ def get_company(id:int):
     if request.method == 'GET':
         try:
             controller:object = Company_Controller()
-            company = controller.read_company(id=id)
+            company:str|dict = controller.read_company(id=id)
             if isinstance(company, str):
-                return company, 404
+                return make_response(f'{company}' , status=404)
             else:
-                return make_response(company, 200)
+                return make_response(jsonify(company), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
     #---END READ  BY ID---#
 
     #---READ ALL ---#
@@ -45,13 +45,13 @@ def get_companies():
     if request.method == 'GET':
         try:
             controller:object = Company_Controller()
-            companies = controller.read_companies()
+            companies:str|dict = controller.read_companies()
             if isinstance(companies, str):
-                return companies, 404
+                return make_response(f'{companies}!' , status=404)
             else:
-                return jsonify(companies), 200
+                return make_response(jsonify(companies), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 
     #---END READ ALL ---#
 
@@ -62,15 +62,17 @@ def get_companies():
 def edit_company(id:int):
     if request.method == 'PUT':
         try:
-            data:dict = request.get_json()
-            if data:
-                controller:object = Company_Controller()
-                response:str = controller.update_company(id=id, new_data=data)
-                return make_response(f'{response}!', 200)
+            form:object = Company_Form()
+            if form.data:
+                if form.validate_on_submit():
+                    new_data:dict = form.data
+                    controller:object = Company_Controller()
+                    response:str = controller.update_company(id=id, new_data=new_data)
+                    return make_response(f'{response}!', status=200)
             else:
-                return 'Need data to update', 400
+                return make_response('Need data to update', status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 
 #---END UPDATE ROUTE---#
 
@@ -81,7 +83,7 @@ def remove_company(id:int):
         try:
             controller:object = Company_Controller()
             response:str = controller.delete_company(id=id)
-            return make_response(f'{response}!', 200)
+            return make_response(f'{response}!', status=200)
         except Exception as e:    
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END DELETE ROUTE---#

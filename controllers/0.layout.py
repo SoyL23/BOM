@@ -9,8 +9,9 @@ class Controller:
             with db.session.begin():
                 db.session.add(new_data)
                 db.session.commit()    
-        except:
+        except Exception as e:
             db.session.rollback()
+            return
         finally:
             db.session.close()
     

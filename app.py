@@ -8,6 +8,7 @@ from routes.course_routes import course_bp
 from routes.company_routes import company_bp
 from routes.employee_route import employee_bp
 from routes.evaluation_route import evaluation_bp
+from routes.certificate_routes import certificate_bp
 class App():
 
     def __init__(self):
@@ -24,6 +25,7 @@ class App():
         self.app.register_blueprint(employee_bp)
         self.app.register_blueprint(evaluation_bp)
         self.app.register_blueprint(user_data_bp)
+        self.app.register_blueprint(certificate_bp)
 
         @self.app.route('/')
         def home():

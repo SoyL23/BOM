@@ -1,5 +1,6 @@
 from db.db import db
 from models.company_model import Company
+from sqlalchemy.exc import SQLAlchemyError
 
 class Company_Controller():
 
@@ -14,6 +15,9 @@ class Company_Controller():
                 db.session.add(company)
                 db.session.commit()
             return 'Company created successfully.'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -29,6 +33,9 @@ class Company_Controller():
                 return company.to_dict()
             else:
                 return 'Company not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -46,6 +53,9 @@ class Company_Controller():
                 return data
             else:
                 return 'Companies not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -66,6 +76,9 @@ class Company_Controller():
                 return 'Company updated successfully.'             
             else:
                 return 'Company not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -83,6 +96,9 @@ class Company_Controller():
                 return 'Company deleted successfully'
             else:
                 return 'Company not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'    
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'

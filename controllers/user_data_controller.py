@@ -1,5 +1,6 @@
 from models.user_data_model import User_Data
 from db.db import db
+from sqlalchemy.exc import SQLAlchemyError
 
 class User_Data_Controller:
     
@@ -10,6 +11,9 @@ class User_Data_Controller:
                 db.session.add(user_data)
                 db.session.commit()
                 return 'User Data is Saved'    
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -24,6 +28,9 @@ class User_Data_Controller:
                     return data.to_dict()
                 else:
                      return 'User data not found.'   
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -42,6 +49,9 @@ class User_Data_Controller:
                     return 'User data updated succesfully.'
                 else:
                      return 'User data not found.'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -56,6 +66,9 @@ class User_Data_Controller:
                     db.session.delete(user_data)
                     db.session.commit()
                     return 'Data deleted successfully.'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'

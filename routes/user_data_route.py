@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 from controllers.user_data_controller import User_Data_Controller
 from forms.user_data_form import User_Data_Form
 
-user_data_bp = Blueprint('user_data', __name__)
+user_data_bp:object = Blueprint('user_data', __name__)
 
 #---CREATE ROUTE---#
 
@@ -12,14 +12,14 @@ def add_data():
         try:
             form:object = User_Data_Form()
             if form.validate_on_submit():
-                data = form.data
-                controller = User_Data_Controller()
-                response = controller.create_data(data=data)
+                data:dict = form.data
+                controller:object = User_Data_Controller()
+                response:str = controller.create_data(data=data)
                 return make_response(f'{response}!', 201)
             else:
                 return make_response({'errors': form.errors}),400
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END CREATE ROUTE---#
 
 
@@ -31,13 +31,13 @@ def get_data(id:int):
     if request.method == 'GET':
         try:
             controller:object = User_Data_Controller()
-            data = controller.read_data(id=id)
+            data:str|dict = controller.read_data(id=id)
             if isinstance(data, str):
-                return data, 404
+                return make_response(f'{data}!', status=404)
             else:
-                return jsonify(data), 200
+                return make_response(jsonify(data), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
     #---END READ  BY ID---#
 
 #---END READ  ROUTE---#
@@ -48,15 +48,19 @@ def get_data(id:int):
 def edit_data(id:int):
     if request.method == 'PUT':
         try:
-            new_data:dict = request.get_json()
-            if new_data:
-                controller:object = User_Data_Controller()
-                response:str = controller.update_data(id=id, new_data=new_data)
-                return make_response(f'{response}', 200)
+            form:object = User_Data_Form()
+            if form.data:
+                if form.validate_on_submit():
+                    new_data:dict = form.data
+                    controller:object = User_Data_Controller()
+                    response:str = controller.update_data(id=id, new_data=new_data)
+                    return make_response(f'{response}', status=200)
+                else:
+                    return make_response({'errors': form.errors} , status=400)
             else:
-                return 'Needed data to update!'
+                return make_response('Needed data to update!', status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 
 #---END UPDATE ROUTE---#
 
@@ -67,8 +71,8 @@ def remove_data(id:int):
     if request.method == 'DELETE':
         try:
             controller:object = User_Data_Controller()
-            response = controller.delete_data(id=id)
-            return make_response(f'{response}!', 200)
+            response:str = controller.delete_data(id=id)
+            return make_response(f'{response}!', status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 #---END DELETE ROUTE---#

@@ -1,5 +1,6 @@
 from models.employee_model import Employee
 from db.db import db
+from sqlalchemy.exc import SQLAlchemyError
 
 class Employee_Controller:
     
@@ -9,7 +10,10 @@ class Employee_Controller:
             with db.session.begin():
                 db.session.add(employee)
                 db.session.commit()
-                return 'Employee created successfully.'    
+                return 'Employee created successfully.' 
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'   
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -24,6 +28,9 @@ class Employee_Controller:
                     return employee.to_dict()
                 else:
                     return 'Employee not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'       
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -39,6 +46,9 @@ class Employee_Controller:
                     return data
                 else:
                     return 'Not Empoyees Found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -56,6 +66,9 @@ class Employee_Controller:
                     return 'Employee updated successfully.'
                 else:
                     return 'Employee Not Found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -72,6 +85,9 @@ class Employee_Controller:
                     return 'Employee deleted successfully.'
             else:
                 return 'Employee Not Found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'

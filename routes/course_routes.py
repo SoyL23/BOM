@@ -2,7 +2,7 @@ from flask import Blueprint, request, make_response,jsonify
 from forms.course_form import Course_Form
 from controllers.course_controller import Course_Controller
 
-course_bp = Blueprint('course', __name__)
+course_bp:object = Blueprint('course', __name__)
 
 #---CREATE ROUTE---#
 
@@ -15,11 +15,11 @@ def add_course():
                 data:dict = form.data
                 controller:object = Course_Controller()
                 response:str = controller.create_course(course_data=data)
-                return make_response(f'{response}!', 201)
+                return make_response(f'{response}!', status=201)
             else:
-                return make_response({'errors': form.errors}),400
+                return make_response({'errors': form.errors}, status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
         
 #---END CREATE ROUTE---#
 
@@ -33,13 +33,13 @@ def get_course(id:int):
     if request.method == 'GET':
         try:
             controller:object = Course_Controller()
-            course = controller.read_course(id=id)
+            course:str|dict = controller.read_course(id=id)
             if isinstance(course, str):
-                return course, 404
+                return make_response(f'{course}!' , status=404)
             else:
-                return make_response(course, 200)
+                return make_response(jsonify(course), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
         
     #---END READ BY ID---#
 
@@ -50,13 +50,13 @@ def get_courses():
     if request.method == 'GET':
         try:
             controller:object = Course_Controller()
-            courses = controller.read_courses()
+            courses:str|dict = controller.read_courses()
             if isinstance(courses, str):
-                return courses, 404
+                return make_response(f'{courses}!' , status=404)
             else:
-                return jsonify(courses), 200
+                return make_response(jsonify(courses), status=200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 
     #---END READ ALL ---#
 
@@ -69,15 +69,19 @@ def get_courses():
 def edit_course(id:int):
     if request.method == 'PUT':
         try:
-            new_data:dict = request.get_json()
-            if new_data:
-                controller:object = Course_Controller()
-                response:str = controller.update_course(id=id, new_data=new_data)
-                return make_response(f'{response}!', 200)
+            form:object = Course_Form()
+            if form.data:
+                if form.validate_on_submit():
+                    new_data:dict = form.data
+                    controller:object = Course_Controller()
+                    response:str = controller.update_course(id=id, new_data=new_data)
+                    return make_response(f'{response}!', status=200)
+                else:
+                    return make_response({'errors': form.errors} , status=400)
             else:
-                return 'Needed data to update', 400
+                return make_response('Needed data to update', status=400)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
 
 #---END UPDATE ROUTE---#
 
@@ -89,9 +93,9 @@ def remove_course(id:int):
     if request.method == 'DELETE':
         try:
             controller:object = Course_Controller()
-            response = controller.delete_course(id=id)
+            response:str = controller.delete_course(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:
-            return make_response(f'Error: {e}', 400)
+            return make_response(f'{e}', status=400)
         
 #---END DELETE ROUTE---#

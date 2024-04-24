@@ -1,6 +1,6 @@
 from db.db import db
 from models.user_model import User
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 class User_Controller():
 
@@ -16,6 +16,9 @@ class User_Controller():
         except IntegrityError as ie:
             db.session.rollback()
             return 'Username has been used'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -37,6 +40,9 @@ class User_Controller():
                     return user.to_dict()
                 else:
                     return 'User not found.'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -54,6 +60,9 @@ class User_Controller():
                     return data
                 else:
                     return 'Users not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -81,6 +90,9 @@ class User_Controller():
         except IntegrityError as ie:
             db.session.rollback()
             return 'Username has been used'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -99,6 +111,9 @@ class User_Controller():
                     return "User deleted successfully."
                 else:
                     return "User not found."
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'

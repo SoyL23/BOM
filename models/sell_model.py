@@ -19,7 +19,7 @@ class Sell(Base):
 
     courses = relationship('Course', secondary=association_table, backref='sells')
 
-    def __init__(self, date, total: float, client_id: int, seller_id: int):
+    def __init__(self, date, total:float, client_id: int, seller_id: int):
         self.date = date
         self.total = total
         self.client_id = client_id

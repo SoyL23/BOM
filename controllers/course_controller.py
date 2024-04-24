@@ -1,5 +1,6 @@
 from db.db import db
 from models.course_model import Course
+from sqlalchemy.exc import SQLAlchemyError
 
 class Course_Controller():
 
@@ -13,7 +14,10 @@ class Course_Controller():
             with db.session.begin():
                 db.session.add(course)
                 db.session.commit()
-            return 'Course created successfully.'    
+            return 'Course created successfully.' 
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'   
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -30,6 +34,9 @@ class Course_Controller():
                 return course.to_dict()
             else:
                 return 'Course not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'    
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -46,6 +53,9 @@ class Course_Controller():
                 return data
             else:
                 return 'Courses not found'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'    
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -65,6 +75,9 @@ class Course_Controller():
                 return "Course updated successfully."
             else:
                 return 'Course not Found' 
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'    
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
@@ -82,6 +95,9 @@ class Course_Controller():
                 return 'Course deleted successfully'
             else:
                 return 'Course not found.'
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            return f'DATABASE ERROR: {str(e)}'    
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
