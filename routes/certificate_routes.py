@@ -53,7 +53,7 @@ def edit_certificate(id:int):
             form:Form = Form()
             if form.validate_on_submit():
                 controller:Controller = Controller()
-                response:str = controller.update_certificate(id=id)
+                response:str = controller.update_certificate(id=id, new_data=form.data)
                 return make_response(f'{response}', 200)
             else:
                 return make_response({'errors': form.errors} , 400)

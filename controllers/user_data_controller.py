@@ -46,6 +46,7 @@ class User_Data_Controller:
                     for attribute, data in new_data.items():
                         if attribute != 'id':
                             setattr(user_data, attribute, data)
+                    db.session.commit()
                     return 'User data updated succesfully.'
                 else:
                      return 'User data not found.'

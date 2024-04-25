@@ -41,7 +41,7 @@ class Employee_Controller:
     def read_employees(self) -> str | dict:
         try:
             with db.session.begin():
-                employees = db.session.query(Employee).all()
+                employees:List[Employee] = db.session.query(Employee).all()
                 if employees:
                     data = {employee.id:employee.to_dict() for employee in employees}
                     return data
@@ -64,6 +64,7 @@ class Employee_Controller:
                     for attribute, data in new_data.items():
                         if attribute != 'id':
                             setattr(employee, attribute, data)
+                    db.session.commit()
                     return 'Employee updated successfully.'
                 else:
                     return 'Employee Not Found'

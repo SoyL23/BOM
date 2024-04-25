@@ -76,11 +76,11 @@ def edit_user(id:int):
 
 #---DELETE USER ROUTE---#
 @user_bp.route('/delete/<id>', methods=['DELETE'])
-def remove_user(id:int):
+def remove_user(id:int): 
     if request.method == 'DELETE':
         try:
             controller:Controller = Controller()
-            response:str = controller.delete_user(id)
+            response:str = controller.delete_user(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:
             return make_response(f'{e}', 400)

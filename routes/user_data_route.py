@@ -1,6 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify
-from controllers.user_data_controller import User_Data_Controller
-from forms.user_data_form import User_Data_Form
+from controllers.user_data_controller import User_Data_Controller as Controller
+from forms.user_data_form import User_Data_Form as Form
 
 user_data_bp:Blueprint = Blueprint('user_data', __name__, url_prefix='/api/v1/user_data')
 
@@ -10,10 +10,10 @@ user_data_bp:Blueprint = Blueprint('user_data', __name__, url_prefix='/api/v1/us
 def add_data():
     if request.method == 'POST':
         try:
-            form:object = User_Data_Form()
+            form:Form = Form()
             if form.validate_on_submit():
                 data:dict = form.data
-                controller:object = User_Data_Controller()
+                controller:Controller = Controller()
                 response:str = controller.create_data(data=data)
                 return make_response(f'{response}!', 201)
             else:
@@ -30,7 +30,7 @@ def add_data():
 def get_data(id:int):
     if request.method == 'GET':
         try:
-            controller:object = User_Data_Controller()
+            controller:Controller = Controller()
             data:str|dict = controller.read_data(id=id)
             if isinstance(data, str):
                 return make_response(f'{data}!', 404)
@@ -48,11 +48,11 @@ def get_data(id:int):
 def edit_data(id:int):
     if request.method == 'PUT':
         try:
-            form:object = User_Data_Form()
+            form:Form = Form()
             if form.data:
                 if form.validate_on_submit():
                     new_data:dict = form.data
-                    controller:object = User_Data_Controller()
+                    controller:Controller = Controller()
                     response:str = controller.update_data(id=id, new_data=new_data)
                     return make_response(f'{response}', 200)
                 else:
@@ -70,7 +70,7 @@ def edit_data(id:int):
 def remove_data(id:int):
     if request.method == 'DELETE':
         try:
-            controller:object = User_Data_Controller()
+            controller:Controller = Controller()
             response:str = controller.delete_data(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:

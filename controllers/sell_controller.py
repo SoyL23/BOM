@@ -40,7 +40,7 @@ class Sell_Controller:
     def read_sells(self) -> str | dict:
         try:
             with db.session.begin():
-                 sells = db.session.query(Sell).all()
+                 sells:List[Sell] = db.session.query(Sell).all()
                  if sells:
                      data = {sell.id:sell.to_dict() for sell in sells} 
                      return data

@@ -15,7 +15,7 @@ class Generate_Certificate:
         try:
             evaluation_controller = Evaluation_Controller()
             evaluation:str|dict = evaluation_controller.read_evaluation(id=evaluation_id)
-            if not evaluation | isinstance(evaluation, str):
+            if not evaluation or isinstance(evaluation, str):
                 return None
 
             user_id:int = evaluation['student_id']
