@@ -5,22 +5,24 @@ from forms.sell_form import Sell_Form as Form
 
 sell_bp:Blueprint = Blueprint('Sell', __name__, url_prefix='/api/v1/sell')
 
-@sell_bp.route('/create/', methods=['POST'])
-def add_(id:int):
+@sell_bp.route('/create', methods=['POST'])
+def add_sell():
     if request.method == 'POST':
         try:
             form:Form=Form()
             if form.validate_on_submit():
                 data:dict = form.data
-                controller:object = Controller()
+                controller:Controller = Controller()
                 response:str = controller.create_sell(data=data)
-                return f'{response}!'
+                return make_response(f'{response}!', 201)
+            else:
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
             return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/read/<id>', methods=['GET'])
-def get_(id:int):
+def get_sell(id:int):
     if request.method == 'GET':
         try:
             controller:Controller = Controller()
@@ -34,11 +36,11 @@ def get_(id:int):
             
 
 @sell_bp.route('/read/all', methods=['GET'])
-def get_(id:int):
+def get_sell(id:int):
     if request.method == 'GET':
         try:
-            controller:object = Controller()
-            sells:str|dict = controller.read_sell()
+            controller:Controller = Controller()
+            sells:str|dict = controller.read_sell(id=id)
             if isinstance(sells, str):
                 return make_response(f'{sells}!', 404)
             else:
@@ -48,19 +50,23 @@ def get_(id:int):
             
 
 @sell_bp.route('/update/<id>', methods=['PUT'])
-def edit_(id:int):
+def edit_sell(id:int):
     if request.method == 'PUT':
         try:
-            new_data:dict = request.get_json()
-            controller:Controller = Controller()
-            response:str = controller.update_sell(id=id, new_data=new_data)
-            return f'{response}!'
+            form:Form = Form()
+            if form.validate_on_submit():    
+                new_data:dict = request.get_json()
+                controller:Controller = Controller()
+                response:str = controller.update_sell(id=id, new_data=new_data)
+                return make_response(f'{response}!', 200)
+            else:
+                return make_response({'errors': form.errors}, 400)
         except Exception as e:
             return make_response(f'{e}', 400)
             
 
 @sell_bp.route('/delete/<id>', methods=['DELETE'])
-def remove_(id:int):
+def remove_sell(id:int):
     if request.method == 'DELETE':
         try:
             controller:Controller = Controller()
@@ -68,5 +74,3 @@ def remove_(id:int):
             return f'{response}!'
         except Exception as e:
             return make_response(f'{e}', 400)
-            
-    

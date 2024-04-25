@@ -19,7 +19,7 @@ class Certificate_Controller:
             db.session.rollback()
             return f'Error: {str(e)}'
     
-    def read_certificate(self, id: int) -> str | dict:
+    def read_certificate(self, id: int) -> str|dict:
         try:
             with db.session.begin():
                 certificate:Certificate = db.session.query(Certificate).get(ident=id)
@@ -34,7 +34,7 @@ class Certificate_Controller:
             db.session.rollback()
             return f'Error: {str(e)}'
     
-    def read_certificates(self) -> str | dict:
+    def read_certificates(self) -> str|dict:
         try:
             with db.session.begin():
                 certificates:List[Certificate] = db.session.query(Certificate).all()
@@ -85,4 +85,3 @@ class Certificate_Controller:
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
-

@@ -21,7 +21,9 @@ class Main():
    def __init__(self): 
    
       if __name__ == '__main__':
-
-         Base.metadata.create_all(db.engine)
+         self.create_tables()
+         
+   def create_tables(self):
+      Base.metadata.create_all(db.engine)
 
 main = Main()

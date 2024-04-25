@@ -13,8 +13,6 @@ class Index():
     def run(self):
         return app.app.run()
             
-        
-
 index = Index()
 
 index.run()
