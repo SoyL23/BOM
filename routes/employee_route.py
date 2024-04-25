@@ -1,19 +1,19 @@
 from flask import Blueprint, request, make_response, jsonify
-from controllers.employees_controller import Employee_Controller
-from forms.employee_form import Employee_Form
+from controllers.employees_controller import Employee_Controller as Controller
+from forms.employee_form import Employee_Form as Form
 
-employee_bp:object = Blueprint('employee', __name__)
+employee_bp:Blueprint = Blueprint('employee', __name__, url_prefix='/api/v1/employee')
 
 #---CREATE ROUTE---#
 
-@employee_bp.route('/api/v1/employee/create', methods=['POST'])
+@employee_bp.route('/create', methods=['POST'])
 def add_employee():
     if request.method == 'POST':
         try:
-            form:object = Employee_Form()
+            form:Form = Form()
             if form.validate_on_submit():
                 data:dict = form.data
-                controller:object = Employee_Controller()
+                controller:Controller = Controller()
                 response:str = controller.create_employee(employee_data=data)
                 return make_response(f'{response}!', 201)
             else:
@@ -26,11 +26,11 @@ def add_employee():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@employee_bp.route('/api/v1/employee/read/<id>')
+@employee_bp.route('/read/<id>')
 def get_employee(id:int):
     if request.method == 'GET':
         try:
-            controller:object = Employee_Controller()
+            controller:Controller = Controller()
             employee:str|dict = controller.read_employee(id=id)
             if isinstance(employee, str):
                 return make_response(f'{employee}!', 404)
@@ -41,11 +41,11 @@ def get_employee(id:int):
     #---END READ  BY ID---#
 
     #---READ ALL ---#
-@employee_bp.route('/api/v1/employee/read/all')
+@employee_bp.route('/read/all')
 def get_employees():
     if request.method == 'GET':
         try:
-            controller:object = Employee_Controller()
+            controller:Controller = Controller()
             employees:str|dict = controller.read_employees()
             if isinstance(employees, str):
                 return make_response(f'{employees}!', 404)
@@ -62,15 +62,15 @@ def get_employees():
 
 
 #---UPDATE  ROUTE---#
-@employee_bp.route('/api/v1/employee/update/<id>',  methods=['PUT'])
+@employee_bp.route('/update/<id>',  methods=['PUT'])
 def edit_employee(id:int):
     if request.method == 'PUT':
         try:
-            form:object = Employee_Form()
+            form:Form = Form()
             if form.data:
                 if form.validate_on_submit():
                     new_data:dict = form.data
-                    controller:object = Employee_Controller()
+                    controller:Controller = Controller()
                     response:str = controller.update_employee(id=id, new_data=new_data)
                     return make_response(f'{response}!', 200)
                 else:
@@ -85,11 +85,11 @@ def edit_employee(id:int):
 
 
 #---DELETE  ROUTE---#
-@employee_bp.route('/api/v1/employee/delete/<id>', methods=['DELETE'])
+@employee_bp.route('/delete/<id>', methods=['DELETE'])
 def remove_employee(id:int):
     if request.method == 'DELETE':
         try:
-            controller:object = Employee_Controller()
+            controller:Controller = Controller()
             response:str = controller.delete_employee(id)
             return make_response(f'{response}!', 200)
         except Exception as e:

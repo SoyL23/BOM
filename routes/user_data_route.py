@@ -2,11 +2,11 @@ from flask import Blueprint, request, make_response, jsonify
 from controllers.user_data_controller import User_Data_Controller
 from forms.user_data_form import User_Data_Form
 
-user_data_bp:object = Blueprint('user_data', __name__)
+user_data_bp:Blueprint = Blueprint('user_data', __name__, url_prefix='/api/v1/user_data')
 
 #---CREATE ROUTE---#
 
-@user_data_bp.route('/api/v1/user_data/create', methods=['POST'])
+@user_data_bp.route('/create', methods=['POST'])
 def add_data():
     if request.method == 'POST':
         try:
@@ -26,7 +26,7 @@ def add_data():
 #---READ ROUTE---#
 
     #---READ BY ID---#
-@user_data_bp.route('/api/v1/user_data/read/<id>')
+@user_data_bp.route('/read/<id>')
 def get_data(id:int):
     if request.method == 'GET':
         try:
@@ -44,7 +44,7 @@ def get_data(id:int):
 
 
 #---UPDATE  ROUTE---#
-@user_data_bp.route('/api/v1/user_data/update/<id>',  methods=['PUT'])
+@user_data_bp.route('/update/<id>',  methods=['PUT'])
 def edit_data(id:int):
     if request.method == 'PUT':
         try:
@@ -66,7 +66,7 @@ def edit_data(id:int):
 
 
 #---DELETE  ROUTE---#
-@user_data_bp.route('/api/v1/user_data/delete/<id>', methods=['DELETE'])
+@user_data_bp.route('/delete/<id>', methods=['DELETE'])
 def remove_data(id:int):
     if request.method == 'DELETE':
         try:

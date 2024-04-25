@@ -1,19 +1,19 @@
 from flask import Blueprint, request, make_response,jsonify
-from forms.course_form import Course_Form
-from controllers.course_controller import Course_Controller
+from forms.course_form import Course_Form as Form
+from controllers.course_controller import Course_Controller as Controller
 
-course_bp:object = Blueprint('course', __name__)
+course_bp:Blueprint = Blueprint('course', __name__, url_prefix='/api/v1/course')
 
 #---CREATE ROUTE---#
 
-@course_bp.route('/api/v1/course/create', methods=['POST'])
+@course_bp.route('/create', methods=['POST'])
 def add_course():
     if request.method == 'POST':
         try:
-            form:object = Course_Form()
+            form:Form = Form()
             if form.validate_on_submit():
                 data:dict = form.data
-                controller:object = Course_Controller()
+                controller:Controller = Controller()
                 response:str = controller.create_course(course_data=data)
                 return make_response(f'{response}!', 201)
             else:
@@ -28,11 +28,11 @@ def add_course():
 
     #---READ BY ID---#
 
-@course_bp.route('/api/v1/course/read/<id>')
+@course_bp.route('/read/<id>')
 def get_course(id:int):
     if request.method == 'GET':
         try:
-            controller:object = Course_Controller()
+            controller:Controller = Controller()
             course:str|dict = controller.read_course(id=id)
             if isinstance(course, str):
                 return make_response(f'{course}!' , 404)
@@ -45,11 +45,11 @@ def get_course(id:int):
 
     #---READ ALL---#
 
-@course_bp.route('/api/v1/course/read/all')
+@course_bp.route('/read/all')
 def get_courses():
     if request.method == 'GET':
         try:
-            controller:object = Course_Controller()
+            controller:Controller = Controller()
             courses:str|dict = controller.read_courses()
             if isinstance(courses, str):
                 return make_response(f'{courses}!' , 404)
@@ -65,15 +65,15 @@ def get_courses():
 
 #---UPDATE ROUTE---#
 
-@course_bp.route('/api/v1/course/update/<id>',  methods=['PUT'])
+@course_bp.route('/update/<id>',  methods=['PUT'])
 def edit_course(id:int):
     if request.method == 'PUT':
         try:
-            form:object = Course_Form()
+            form:Form = Form()
             if form.data:
                 if form.validate_on_submit():
                     new_data:dict = form.data
-                    controller:object = Course_Controller()
+                    controller:Controller = Controller()
                     response:str = controller.update_course(id=id, new_data=new_data)
                     return make_response(f'{response}!', 200)
                 else:
@@ -88,11 +88,11 @@ def edit_course(id:int):
 
 #---DELETE ROUTE---#
 
-@course_bp.route('/api/v1/course/delete/<id>', methods=['DELETE'])
+@course_bp.route('/delete/<id>', methods=['DELETE'])
 def remove_course(id:int):
     if request.method == 'DELETE':
         try:
-            controller:object = Course_Controller()
+            controller:Controller = Controller()
             response:str = controller.delete_course(id=id)
             return make_response(f'{response}!', 200)
         except Exception as e:
