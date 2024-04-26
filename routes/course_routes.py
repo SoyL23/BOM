@@ -1,10 +1,12 @@
 from flask import Blueprint, request, make_response,jsonify
 from forms.course_form import Course_Form as Form
 from controllers.course_controller import Course_Controller as Controller
+from flask_jwt_extended import jwt_required
 
 course_bp:Blueprint = Blueprint('course', __name__, url_prefix='/api/v1/course')
 
 #---CREATE ROUTE---#
+
 
 @course_bp.route('/create', methods=['POST'])
 def add_course():

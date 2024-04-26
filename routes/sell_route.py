@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, make_response
 from controllers.sell_controller import Sell_Controller as Controller
 from forms.sell_form import Sell_Form as Form
+from flask_jwt_extended import jwt_required
 
 
 sell_bp:Blueprint = Blueprint('Sell', __name__, url_prefix='/api/v1/sell')

@@ -1,9 +1,11 @@
+from flask_jwt_extended import jwt_required
 from flask import Blueprint, request, make_response, jsonify
 from services.generate_certificate import Generate_Certificate
 from controllers.certificate_controller import Certificate_Controller as Controller
 from forms.certificate_form import Certificate_Form as Form
 
 certificate_bp:Blueprint = Blueprint('certificate', __name__, url_prefix='/api/v1/certificate')
+
 
 @certificate_bp.route('/create/<evaluation_id>', methods=['POST'])
 def add_certificate(evaluation_id:int):
@@ -19,6 +21,7 @@ def add_certificate(evaluation_id:int):
         except Exception as e:
             return make_response(f'{e}', 400)
 
+
 @certificate_bp.route('/read/<id>', methods=['GET'])
 def get_certificate(id:int):
     if request.method == 'GET':
@@ -31,6 +34,7 @@ def get_certificate(id:int):
                 return make_response(jsonify(certificate), 200)
         except Exception as e:
             return make_response(f'{e}', 400)
+
         
 @certificate_bp.route('/read/all', methods=['GET'])
 def get_certificates():
@@ -60,6 +64,7 @@ def edit_certificate(id:int):
         except Exception as e:
             return make_response(f'{e}', 400)
     pass
+
 
 @certificate_bp.route('/delete/<id>', methods=['DELETE'])
 def remove_certificate(id:int):

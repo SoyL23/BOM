@@ -1,11 +1,12 @@
 from flask import Blueprint, request, make_response, jsonify
 from controllers.shopping_controller import Shopping_Controller as Controller
 from forms.shopping_controller import Shopping_Form as Form
+from flask_jwt_extended import jwt_required
 
 shopping_bp:Blueprint = Blueprint('shopping', __name__, url_prefix='/api/v1/shopping')
 
 @shopping_bp.route('/create', methods=['POST'])
-def add_shopping(id:int):
+def add_shopping():
     if request.method == 'POST':
         try:
             form:Form = Form()

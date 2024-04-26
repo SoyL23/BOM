@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from controllers.user_data_controller import User_Data_Controller as Controller
 from forms.user_data_form import User_Data_Form as Form
+from flask_jwt_extended import jwt_required
 
 user_data_bp:Blueprint = Blueprint('user_data', __name__, url_prefix='/api/v1/user_data')
 
@@ -45,6 +46,7 @@ def get_data(id:int):
 
 #---UPDATE  ROUTE---#
 @user_data_bp.route('/update/<id>',  methods=['PUT'])
+@jwt_required
 def edit_data(id:int):
     if request.method == 'PUT':
         try:
@@ -67,6 +69,7 @@ def edit_data(id:int):
 
 #---DELETE  ROUTE---#
 @user_data_bp.route('/delete/<id>', methods=['DELETE'])
+@jwt_required
 def remove_data(id:int):
     if request.method == 'DELETE':
         try:

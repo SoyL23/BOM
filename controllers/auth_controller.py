@@ -17,7 +17,10 @@ class Auth_Controller():
                 user = db.session.query(User).filter_by(username=username).first()
                 if user:
                     if user.check_password(password=password):
-                        return user.to_dict()
+                        data = user.to_dict()
+                        data['role'] = data['data'][0]['role'] if 'data' in data and data['data'] else None
+                        data['email'] = data['data'][0]['email'] if 'data' in data and data['data'] else None
+                        return data
                     else:
                         return 'Invalid Password'
                 else:

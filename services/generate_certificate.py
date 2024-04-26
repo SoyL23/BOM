@@ -1,4 +1,4 @@
-from controllers.evaluation_controller import Evaluation_Controller
+from controllers.evaluation_controller import Evaluation_Controller as Controller
 from db.db import db
 from models.user_model import User
 from models.course_model import Course
@@ -13,8 +13,8 @@ class Generate_Certificate:
 
     def __generate_certificate(self, evaluation_id: int):
         try:
-            evaluation_controller = Evaluation_Controller()
-            evaluation:str|dict = evaluation_controller.read_evaluation(id=evaluation_id)
+            controller:Controller = Controller()
+            evaluation:str|dict = controller.read_evaluation(id=evaluation_id)
             if not evaluation or isinstance(evaluation, str):
                 return None
 

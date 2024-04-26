@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from controllers.employees_controller import Employee_Controller as Controller
 from forms.employee_form import Employee_Form as Form
+from flask_jwt_extended import jwt_required
 
 employee_bp:Blueprint = Blueprint('employee', __name__, url_prefix='/api/v1/employee')
 

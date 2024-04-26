@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from controllers.evaluation_controller import Evaluation_Controller as Controller
 from forms.evaluation_form import Evaluation_Form as Form
+from flask_jwt_extended import jwt_required
 
 evaluation_bp:Blueprint = Blueprint('evaluation', __name__, url_prefix='/api/v1/evaluation')
 

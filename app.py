@@ -9,6 +9,8 @@ from routes.evaluation_route import evaluation_bp
 from routes.certificate_routes import certificate_bp
 from routes.shopping_route import shopping_bp
 from routes.sell_route import sell_bp
+from routes.auth_route import auth_bp
+from flask_jwt_extended import JWTManager
 class App():
 
     def __init__(self):
@@ -17,6 +19,7 @@ class App():
 
         self.app = Flask(__name__)
         self.app.config.from_object(ConfigDev)
+        self.jwt = JWTManager(self.app)
         
         
         self.app.register_blueprint(user_bp)
@@ -28,6 +31,7 @@ class App():
         self.app.register_blueprint(certificate_bp)
         self.app.register_blueprint(shopping_bp)
         self.app.register_blueprint(sell_bp)
+        self.app.register_blueprint(auth_bp)
 
         @self.app.route('/')
         def home():

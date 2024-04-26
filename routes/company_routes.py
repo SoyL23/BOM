@@ -1,6 +1,7 @@
 from flask import Blueprint, request, make_response, jsonify
 from forms.company_form import Company_Form as Form
 from controllers.company_controller import Company_Controller as Controller
+from flask_jwt_extended import jwt_required
 
 company_bp:Blueprint = Blueprint('company', __name__, url_prefix='/api/v1/company')
 
@@ -58,6 +59,7 @@ def get_companies():
 #---END READ  ROUTE---#
 
 #---UPDATE  ROUTE---#
+
 @company_bp.route('/update/<id>',  methods=['PUT'])
 def edit_company(id:int):
     if request.method == 'PUT':
