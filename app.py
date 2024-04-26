@@ -9,7 +9,7 @@ from routes.evaluation_route import evaluation_bp
 from routes.certificate_routes import certificate_bp
 from routes.shopping_route import shopping_bp
 from routes.sell_route import sell_bp
-from routes.auth_route import auth_bp
+from routes.auth_routes import auth_bp
 from flask_jwt_extended import JWTManager
 class App():
 
