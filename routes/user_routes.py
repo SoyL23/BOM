@@ -2,6 +2,7 @@ from flask import Blueprint, request, make_response, jsonify
 from controllers.user_controller import User_Controller as Controller
 from forms.user_form import User_Form as Form
 
+
 user_bp:Blueprint = Blueprint('user', __name__ , url_prefix='/api/v1/user')
 
 #---CREATE USER ROUTE---#

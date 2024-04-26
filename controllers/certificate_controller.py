@@ -18,6 +18,8 @@ class Certificate_Controller:
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
+        finally:
+            db.session.close()
     
     def read_certificate(self, id: int) -> str|dict:
         try:
@@ -33,6 +35,8 @@ class Certificate_Controller:
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
+        finally:
+            db.session.close()
     
     def read_certificates(self) -> str|dict:
         try:
@@ -68,6 +72,8 @@ class Certificate_Controller:
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
+        finally:
+            db.session.close()
     
     def delete_certificate(self, id: int) -> str:
         try:
@@ -85,3 +91,5 @@ class Certificate_Controller:
         except Exception as e:
             db.session.rollback()
             return f'Error: {str(e)}'
+        finally:
+            db.session.close()

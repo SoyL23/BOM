@@ -2,6 +2,7 @@ from db.db import db
 from models.user_model import User
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from typing import List
+from werkzeug.security import generate_password_hash
 
 class User_Controller():
 
@@ -9,6 +10,7 @@ class User_Controller():
 
     def create_user(self, user_data:dict) -> str:
         try:
+            user_data['password'] = generate_password_hash(password=user_data['password'])
             user:object = User(**user_data)
             with db.session.begin():
                 db.session.add(user)

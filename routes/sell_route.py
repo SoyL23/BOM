@@ -36,7 +36,7 @@ def get_sell(id:int):
             
 
 @sell_bp.route('/read/all', methods=['GET'])
-def get_sell(id:int):
+def get_sells(id:int):
     if request.method == 'GET':
         try:
             controller:Controller = Controller()

@@ -6,6 +6,7 @@ from datetime import date
 from sqlalchemy import func
 from sqlalchemy.orm import column_property
 from sqlalchemy.ext.hybrid import hybrid_property
+from werkzeug.security import check_password_hash
 
 class User(Base):
 
@@ -39,3 +40,6 @@ class User(Base):
             'created_ad': self.created_ad,
             'data': self.data_dict
         }
+    
+    def check_password(self, password:str):
+        return check_password_hash(self.password, password)
